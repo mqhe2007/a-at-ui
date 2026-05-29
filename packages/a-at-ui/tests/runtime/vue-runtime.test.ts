@@ -42,7 +42,7 @@ const DataTableComponent = defineComponent({
 
 function createManifest(): AAtUIManifest {
   return {
-    specVersion: '2.0.0',
+    specVersion: '0.1.0',
     library: {
       name: 'test-components',
       version: '0.1.0',

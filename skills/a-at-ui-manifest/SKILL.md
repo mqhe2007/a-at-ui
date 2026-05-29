@@ -43,7 +43,7 @@ The manifest is the contract between the component library and the AI agent. The
 
 ```json
 {
-  "specVersion": "1.0.0",
+  "specVersion": "0.1.0",
   "library": {
     "name": "your-component-library",
     "version": "1.0.0",
@@ -56,7 +56,7 @@ The manifest is the contract between the component library and the AI agent. The
 
 | Field | Required | Description |
 |-------|----------|-------------|
-| `specVersion` | Yes | Manifest schema version. Currently `"1.0.0"`. |
+| `specVersion` | Yes | Manifest schema version. Currently `"0.1.0"`. |
 | `library.name` | Yes | Library package name. Used for scoping. |
 | `library.version` | Yes | Library version. Should match `package.json` version. |
 | `library.description` | No | Human-readable library description. |
@@ -184,7 +184,7 @@ Here is a realistic manifest for a "user-profile-widgets" library:
 
 ```json
 {
-  "specVersion": "1.0.0",
+  "specVersion": "0.1.0",
   "library": {
     "name": "user-profile-widgets",
     "version": "1.2.0",
@@ -301,7 +301,7 @@ List every component you want to expose to AI agents. For each, note:
 
 ```json
 {
-  "specVersion": "1.0.0",
+  "specVersion": "0.1.0",
   "library": {
     "name": "your-library-name",
     "version": "1.0.0"
@@ -456,7 +456,7 @@ Always explicitly declare lifecycle capabilities. Don't assume defaults. AI agen
 Before shipping a manifest, verify:
 
 1. File is valid JSON — no trailing commas, no unquoted keys.
-2. `specVersion` is `"1.0.0"`.
+2. `specVersion` is `"0.1.0"`.
 3. `library.name` and `library.version` are present and correct.
 4. Every component has `name`, `description`, `params`, `events`, and `lifecycle`.
 5. All component names are unique.

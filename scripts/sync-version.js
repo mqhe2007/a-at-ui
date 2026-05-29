@@ -71,4 +71,34 @@ for (const skillName of readdirSync(skillsDir)) {
   console.log(`  ✓ skills/${skillName}/SKILL.md → ${version}`);
 }
 
+// 5. 同步 SKILL.md 正文中的 specVersion 引用
+const specVersion = rootPkg.specVersion;
+if (specVersion) {
+  console.log(`📌 specVersion 真相源: ${specVersion}`);
+
+  for (const skillName of readdirSync(skillsDir)) {
+    const skillMdPath = path.join(skillsDir, skillName, 'SKILL.md');
+    let content;
+    try {
+      content = readFileSync(skillMdPath, 'utf-8');
+    } catch {
+      continue;
+    }
+
+    // 匹配所有包含 specVersion 的行中的版本号引用
+    // 例如: "specVersion": "0.1.0" / Currently "0.1.0" / specVersion is "0.1.0"
+    const specVersionRegex = /(specVersion[^\n]{0,100}")[0-9]+\.[0-9]+\.[0-9]+(")/g;
+    const updated = content.replace(specVersionRegex, `$1${specVersion}$2`);
+
+    if (updated !== content) {
+      writeFileSync(skillMdPath, updated);
+      console.log(`  ✓ skills/${skillName}/SKILL.md specVersion 引用已同步 → ${specVersion}`);
+    } else {
+      console.log(`  - skills/${skillName}/SKILL.md specVersion 引用已是最新`);
+    }
+  }
+} else {
+  console.log('⚠ 根 package.json 缺少 specVersion 字段，跳过 spec 版本同步');
+}
+
 console.log('✅ 版本同步完成');

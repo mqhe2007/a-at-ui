@@ -10,7 +10,7 @@ title: 组件库指南
 
 ```json
 {
-  "specVersion": "1.0.0",
+  "specVersion": "0.1.0",
   "library": {
     "name": "your-library",
     "version": "1.0.0"
