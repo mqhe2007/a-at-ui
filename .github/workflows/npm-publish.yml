@@ -10,7 +10,7 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     env:
-      ACTIONS_RUNNER_FORCE_ACTIONS_NODE_VERSION: node24
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     permissions:
       contents: read
       id-token: write
@@ -27,7 +27,6 @@ jobs:
         with:
           node-version: 24
           registry-url: https://registry.npmjs.org
-          package-manager-cache: false
 
       - name: Verify npm trusted publishing support
         run: |
