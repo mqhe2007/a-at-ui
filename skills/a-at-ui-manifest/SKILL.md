@@ -3,7 +3,7 @@ name: a-at-ui-manifest
 description: "Use when a component library author needs to create, validate, or maintain the a-at-ui.manifest.json file that declares components to the A@UI runtime. Covers manifest schema, component registration, params design, event definitions, and lifecycle declarations. Targets component library maintainers integrating with A@UI."
 metadata:
   author: a-at-ui
-  version: "0.1.0"
+  version: "0.2.0"
 ---
 
 # A@UI Manifest Skill

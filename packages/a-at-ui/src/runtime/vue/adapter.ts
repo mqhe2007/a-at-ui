@@ -21,7 +21,7 @@ export interface AAtUIAdapterOptions {
   components: Record<string, Component>;
   manifest: AAtUIManifest;
   mountTarget: string | HTMLElement;
-  onWidgetReady?: (widgetId: string, component: string) => void;
+  onWidgetReady?: (widgetId: string, component: string, rootEl: HTMLElement) => void;
   onEvent?: (event: AAtUIEvent<Record<string, AAtUISerializableValue>>) => void;
   onError?: (error: Error, context: AAtUIAdapterErrorContext) => void;
   createWidgetId?: () => string;
@@ -36,7 +36,7 @@ export interface AAtUIVuePluginOptions {
 /** createAdapter 的运行时参数（mountTarget + 回调等动态部分）。 */
 export interface AAtUIAdapterRuntimeOptions {
   mountTarget: string | HTMLElement;
-  onWidgetReady?: (widgetId: string, component: string) => void;
+  onWidgetReady?: (widgetId: string, component: string, rootEl: HTMLElement) => void;
   onEvent?: (event: AAtUIEvent<Record<string, AAtUISerializableValue>>) => void;
   onError?: (error: Error, context: AAtUIAdapterErrorContext) => void;
 }

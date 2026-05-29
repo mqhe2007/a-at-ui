@@ -133,7 +133,8 @@ export class WidgetManager {
 
     const widgetId = this.options.createWidgetId?.() ?? createDefaultWidgetId();
     const container = document.createElement('div');
-    container.dataset.widgetId = widgetId;
+    container.dataset.aatuiWidgetId = widgetId;
+    container.dataset.aatuiComponent = command.component;
     this.mountTargetEl.appendChild(container);
 
     const props = reactive<Record<string, unknown>>({ ...(command.params ?? {}) });
@@ -152,7 +153,7 @@ export class WidgetManager {
       el: container,
     });
 
-    this.options.onWidgetReady?.(widgetId, command.component);
+    this.options.onWidgetReady?.(widgetId, command.component, container);
     return widgetId;
   }
 

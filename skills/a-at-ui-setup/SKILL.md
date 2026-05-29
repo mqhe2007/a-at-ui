@@ -3,7 +3,7 @@ name: a-at-ui-setup
 description: "Use when setting up A@UI in a project: installing the npm package, wiring the frontend runtime, integrating framework adapters, or configuring the component manifest. Targets AI coding tools like Claude Code, Codex, and VS Code. Do NOT use for emitting A@UI commands from a backend agent — use a-at-ui-protocol for that."
 metadata:
   author: a-at-ui
-  version: "0.1.0"
+  version: "0.2.0"
 ---
 
 # A@UI Setup Skill

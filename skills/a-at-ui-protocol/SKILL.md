@@ -3,7 +3,7 @@ name: a-at-ui-protocol
 description: "Use when an AI agent/SDK needs to emit A@UI render/update/destroy command streams to drive frontend widgets. Injects the A@UI protocol rules, command shapes, streaming format, and validation constraints into the agent's system prompt. Backend-only: no frontend runtime setup."
 metadata:
   author: a-at-ui
-  version: "0.1.0"
+  version: "0.2.0"
 ---
 
 # A@UI Protocol Skill

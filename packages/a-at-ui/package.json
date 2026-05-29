@@ -1,6 +1,6 @@
 {
   "name": "a-at-ui",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A@UI is a protocol specification and frontend runtime for AI Agents. Any backend only needs to output a JSON command stream according to the protocol; the frontend is responsible for registering the manifest and components, and consuming the command stream to complete the rendering.",
   "author": "Meng Qinghe",
   "license": "MIT",
