@@ -1,0 +1,61 @@
+{
+  "name": "a-at-ui",
+  "version": "0.1.0",
+  "description": "A@UI is a protocol specification and frontend runtime for AI Agents. Any backend only needs to output a JSON command stream according to the protocol; the frontend is responsible for registering the manifest and components, and consuming the command stream to complete the rendering.",
+  "author": "Meng Qinghe",
+  "license": "MIT",
+  "keywords": [
+    "agent",
+    "ui",
+    "protocol",
+    "vue",
+    "runtime"
+  ],
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mqhe2007/a-at-ui.git"
+  },
+  "homepage": "https://a-at-ui.mengqinghe.com",
+  "bugs": {
+    "url": "https://github.com/mqhe2007/a-at-ui/issues"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    },
+    "./runtime/vue": {
+      "types": "./dist/runtime/vue/index.d.ts",
+      "import": "./dist/runtime/vue/index.mjs",
+      "require": "./dist/runtime/vue/index.cjs"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "dev": "tsup --watch",
+    "build": "tsup && node ../../scripts/sync-package-assets.js",
+    "clean": "rm -rf dist",
+    "prepack": "node ../../scripts/sync-version.js && bun run build",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "happy-dom": "^15.11.7",
+    "tsup": "^8.0.0",
+    "typescript": "^5.4.0",
+    "vitest": "^2.1.8"
+  },
+  "peerDependencies": {
+    "vue": "^3.4.0"
+  }
+}

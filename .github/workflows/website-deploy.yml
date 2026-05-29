@@ -1,0 +1,62 @@
+name: Deploy Website
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - 'apps/website/**'
+      - 'package.json'
+      - 'bun.lock'
+      - '.github/workflows/website-deploy.yml'
+
+concurrency:
+  group: website-deploy
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Build website
+        run: bun website:build
+
+      - name: Install rsync
+        run: sudo apt-get update && sudo apt-get install -y rsync
+
+      - name: Configure SSH
+        env:
+          WEBSITE_SSH_HOST: ${{ secrets.WEBSITE_SSH_HOST }}
+          WEBSITE_SSH_KEY: ${{ secrets.WEBSITE_SSH_KEY }}
+          WEBSITE_SSH_PORT: ${{ secrets.WEBSITE_SSH_PORT || '22' }}
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "$WEBSITE_SSH_KEY" > ~/.ssh/website_deploy_key
+          chmod 600 ~/.ssh/website_deploy_key
+          ssh-keyscan -p "$WEBSITE_SSH_PORT" "$WEBSITE_SSH_HOST" >> ~/.ssh/known_hosts
+
+      - name: Deploy website
+        env:
+          WEBSITE_DEPLOY_PATH: ${{ secrets.WEBSITE_DEPLOY_PATH }}
+          WEBSITE_SSH_HOST: ${{ secrets.WEBSITE_SSH_HOST }}
+          WEBSITE_SSH_PORT: ${{ secrets.WEBSITE_SSH_PORT || '22' }}
+          WEBSITE_SSH_USER: ${{ secrets.WEBSITE_SSH_USER }}
+        run: |
+          ssh -i ~/.ssh/website_deploy_key -p "$WEBSITE_SSH_PORT" "$WEBSITE_SSH_USER@$WEBSITE_SSH_HOST" "mkdir -p '$WEBSITE_DEPLOY_PATH'"
+          rsync -az --delete \
+            -e "ssh -i ~/.ssh/website_deploy_key -p $WEBSITE_SSH_PORT" \
+            apps/website/.output/public/ \
+            "$WEBSITE_SSH_USER@$WEBSITE_SSH_HOST:$WEBSITE_DEPLOY_PATH/"

@@ -1,0 +1,14 @@
+node_modules
+dist
+.DS_Store
+*.log
+.nuxt
+.data
+.output
+coverage
+*.tgz
+.env
+.env.*
+.agents
+promotion.md
+skills-lock.json

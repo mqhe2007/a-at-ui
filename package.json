@@ -1,0 +1,23 @@
+{
+  "name": "a-at-ui-monorepo",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "build": "bun run --filter './packages/*' build",
+    "test": "bun run --filter './packages/*' test",
+    "clean": "bun run --filter './packages/*' clean",
+    "sync-version": "node scripts/sync-version.js",
+    "schema:test": "bun scripts/validate-schemas.js",
+    "website:dev": "bun run --filter 'a-at-ui-website' dev",
+    "website:build": "bun run --filter 'a-at-ui-website' build"
+  },
+  "devDependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1"
+  }
+}

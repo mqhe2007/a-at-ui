@@ -1,0 +1,19 @@
+{
+  "name": "a-at-ui-website",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "nuxi dev",
+    "build": "nuxi generate",
+    "preview": "nuxi preview"
+  },
+  "devDependencies": {
+    "nuxt": "^4.0.0",
+    "@nuxt/content": "^3.0.0",
+    "@nuxtjs/i18n": "^9.0.0"
+  },
+  "dependencies": {
+    "better-sqlite3": "^12.10.0"
+  }
+}
