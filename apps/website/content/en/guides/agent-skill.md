@@ -53,12 +53,12 @@ npx skills add mqhe2007/a-at-ui --skill a-at-ui-setup
 
 ## a-at-ui-protocol (Protocol Injection Skill)
 
-For backend agents that need to emit `render`/`update`/`destroy` command streams. The project's system prompt should be layered as:
+For backend agents that need to emit `render`/`update`/`destroy` commands. Let the skill mechanism load the protocol rules from `SKILL.md` on demand. The effective system context should be layered as:
 
 ```
 [Project business prompt + tool descriptions]
      +
-[A@UI protocol rules (injected by this skill)]
+[A@UI protocol rules (loaded from this skill)]
      +
 [Project manifest + component selection rules (project-maintained)]
 ```

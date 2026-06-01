@@ -11,6 +11,15 @@
 
 A@UI 是一套面向 AI Agent 的协议规范与前端运行时。任意后端只需要按协议输出 JSON 命令流；前端负责注册 manifest 和组件，并消费命令流即可完成渲染。
 
+> [!WARNING]
+> A@UI 目前仍处于快速迭代阶段，现阶段应视为不稳定方案。协议细节、运行时 API、manifest 结构以及命令语义，在正式稳定前都可能继续调整。
+>
+> 如果要接入到生产环境，建议至少注意以下几点：
+> - 使用精确版本号，不要直接放开 semver 范围。
+> - 以当前仓库中的文档和 Schema 资源为准，校验 manifest 与命令载荷。
+> - 升级前先阅读 release notes，并预留处理破坏性变更的空间。
+> - 在集成层为未知命令、字段或渲染行为保留兜底策略。
+
 文档站：<https://a-at-ui.mengqinghe.com>
 
 ## 安装
@@ -31,7 +40,7 @@ npx skills add mqhe2007/a-at-ui --skill a-at-ui
 
 ## 仓库内容
 
-- 协议真相源：SKILL、prompt 片段、JSON Schema、参考文档
+- 协议真相源：SKILL、JSON Schema、参考文档
 - 前端运行时：`a-at-ui` 主入口和 `a-at-ui/runtime/**` 子路径
 - 后端接入方式：任意语言直接输出 A@UI 命令流，无需后端 SDK
 

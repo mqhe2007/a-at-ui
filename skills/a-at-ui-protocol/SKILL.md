@@ -1,9 +1,9 @@
 ---
 name: a-at-ui-protocol
-description: "Use when an AI agent/SDK needs to emit A@UI render/update/destroy command streams to drive frontend widgets. Injects the A@UI protocol rules, command shapes, streaming format, and validation constraints into the agent's system prompt. Backend-only: no frontend runtime setup."
+description: "Use when an AI agent/SDK needs to emit A@UI render/update/destroy commands to drive frontend widgets. Covers command shapes, structured JSON output, optional SSE transport, and validation constraints. Backend-only: no frontend runtime setup."
 metadata:
   author: a-at-ui
-  version: "0.2.0"
+  version: "0.3.0"
 ---
 
 # A@UI Protocol Skill
@@ -11,6 +11,11 @@ metadata:
 ## What This Skill Does
 
 This skill injects the A@UI command protocol into a backend AI agent's system prompt. It teaches the agent how to emit valid `render`, `update`, and `destroy` commands so a frontend runtime can consume them and render widgets.
+
+It is designed to work with both:
+
+- structured JSON output flows, where the model returns a JSON object validated by an SDK or schema
+- streaming transports such as SSE, where commands are serialized onto the wire
 
 Use this skill when:
 
@@ -28,6 +33,43 @@ Do not use this skill for:
 ## Core Principle
 
 Backends do **not** need an A@UI SDK. They only emit JSON command objects. The frontend runtime handles widget lifecycles, mounting, and event forwarding.
+
+## Output Modes
+
+The surrounding system decides how commands are wrapped and transported. Follow the transport that the project asks for.
+
+### Structured JSON Output
+
+When the surrounding system asks for a structured JSON response, return plain JSON only.
+
+Many integrations use a top-level wrapper like:
+
+```json
+{
+  "commands": [
+    { "type": "render", "component": "SearchBox", "params": { "placeholder": "搜索..." } }
+  ]
+}
+```
+
+Rules:
+
+- the top-level object must contain only the fields required by the surrounding schema
+- every item inside `commands` must be a valid A@UI command object
+- do not wrap the JSON in Markdown code fences
+- do not add explanatory prose before or after the JSON
+
+### Optional SSE Transport
+
+When the transport explicitly requires Server-Sent Events, serialize one command per `data:` line and end with `data: [DONE]`.
+
+```text
+data: {"type":"render","component":"SearchBox","params":{"placeholder":"搜索..."}}
+
+data: [DONE]
+```
+
+Use SSE only when the transport explicitly requires SSE. Do not emit `data:` lines in structured-output mode.
 
 ## Valid Commands
 
@@ -88,17 +130,6 @@ Remove an existing widget instance.
 - No extra fields allowed
 - Destroying an unknown `widgetId` is a safe no-op
 
-## Streaming Format (SSE)
-
-When streaming over Server-Sent Events, each command is one `data:` line. End the stream with `data: [DONE]`.
-
-```text
-data: {"type":"render","component":"SearchBox","params":{"placeholder":"搜索..."}}
-
-data: [DONE]
-
-```
-
 ## Hard Constraints
 
 These rules are non-negotiable. Violating any of them produces invalid output.
@@ -110,7 +141,9 @@ These rules are non-negotiable. Violating any of them produces invalid output.
 5. **Component names must exist in the project's manifest.** Unknown components cause runtime errors.
 6. **Do not assume widget IDs** ahead of the initial render unless the surrounding system explicitly returns them.
 7. **Keep params focused on UI state**, not transport metadata or backend internals.
-8. **Output must be valid JSON** that conforms to the A@UI command protocol (see rules 1–7 above).
+8. **When the surrounding system expects a top-level JSON object,** place only valid A@UI commands inside the required wrapper such as `{"commands":[...]}`.
+9. **Do not wrap JSON in Markdown code fences or prose** unless the surrounding system explicitly asks for that format.
+10. **Use SSE `data:` lines only when the transport explicitly requires SSE.**
 
 ## Common Failure Modes
 
@@ -155,6 +188,23 @@ data: {"type":"render",...}
 
 Why wrong: the SSE stream must contain only `data:` lines, not prose.
 
+### ❌ Returning command objects when the schema expects a wrapper
+
+```json
+{"type":"render","component":"SearchBox"}
+```
+
+Why wrong: if the surrounding schema expects `{"commands":[...]}`, raw command objects will fail validation.
+
+### ❌ Returning SSE lines in structured-output mode
+
+```text
+data: {"type":"render","component":"SearchBox"}
+data: [DONE]
+```
+
+Why wrong: structured-output mode expects plain JSON, not SSE wire format.
+
 ## Validation Checklist
 
 Before the agent emits a command stream, verify:
@@ -164,11 +214,12 @@ Before the agent emits a command stream, verify:
 3. Required fields are present; forbidden fields are absent.
 4. All `component` names match the manifest registered in the frontend.
 5. All values are plain JSON types (string, number, boolean, null, array, object).
-6. The SSE stream ends with `data: [DONE]` when using SSE transport.
+6. The outer response shape matches the surrounding schema or transport.
+7. The SSE stream ends with `data: [DONE]` only when using SSE transport.
 
 ## Relationship to Project Manifest
 
-This skill covers the **protocol rules** — what commands look like, how to stream them, what's valid vs invalid.
+This skill covers the **protocol rules** — what commands look like, how structured output works, when SSE transport is appropriate, and what's valid vs invalid.
 
 The **project-specific manifest** (which components exist, their params schemas, and event types) is injected separately by the project at build time or runtime. The manifest is NOT part of this skill, because each project registers different components.
 

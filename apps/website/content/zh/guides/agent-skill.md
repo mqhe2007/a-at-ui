@@ -94,12 +94,12 @@ npx skills add mqhe2007/a-at-ui --skill a-at-ui-protocol
 
 ### 推荐使用方式
 
-在 AI SDK 的系统提示词中引入该 Skill 提供的协议规则。项目的系统提示词应按三层拼接：
+让 Skill 机制按需加载该 Skill 的 `SKILL.md` 协议规则。项目最终生效的系统上下文应按三层拼接：
 
 ```
 [项目业务提示词 + 工具描述]
      +
-[a-at-ui-protocol 注入的协议规则]
+[a-at-ui-protocol 提供并按需加载的协议规则]
      +
 [项目 manifest + 组件选择规则（项目自行维护）]
 ```

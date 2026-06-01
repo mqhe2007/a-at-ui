@@ -11,6 +11,15 @@
 
 A@UI is a protocol specification and frontend runtime for AI agent-driven interfaces. Any backend only needs to emit a JSON command stream that follows the protocol; the frontend registers manifests and components, then consumes the stream to render the UI.
 
+> [!WARNING]
+> A@UI is evolving quickly and should currently be treated as unstable. Protocol details, runtime APIs, manifest shapes, and command semantics may still change before a stable release.
+>
+> Before adopting it in production, keep these constraints in mind:
+> - Pin an exact version instead of using a loose semver range.
+> - Validate manifests and command payloads against the current docs and schema assets in this repository.
+> - Read release notes before upgrading and expect occasional breaking changes.
+> - Keep graceful fallbacks in your integration for unknown commands, fields, or rendering behavior.
+
 Documentation site: <https://a-at-ui.mengqinghe.com>
 
 ## Install
@@ -31,7 +40,7 @@ npx skills add mqhe2007/a-at-ui --skill a-at-ui
 
 ## What This Repository Contains
 
-- Protocol source of truth: SKILL definition, prompt snippets, JSON Schema assets, and reference docs
+- Protocol source of truth: SKILL definition, JSON Schema assets, and reference docs
 - Frontend runtime: the `a-at-ui` package entry and `a-at-ui/runtime/**` subpaths
 - Backend integration model: any language can emit A@UI command streams directly without a backend SDK
 
