@@ -26,7 +26,7 @@
   前端实时渲染组件的过程。
 -->
 <p align="center">
-  <img src="https://via.placeholder.com/720x400?text=A%40UI+Demo" alt="A@UI Demo" width="720">
+  <img width="1138" height="574" alt="a-at-ui-demo-compressed" src="https://github.com/user-attachments/assets/8076afec-584a-4bd5-8704-7b8cccffddd7" />
 </p>
 
 ---
@@ -149,15 +149,15 @@ npx skills add mqhe2007/a-at-ui --skill a-at-ui
 
 [A2UI](https://a2ui.org/) 是 Google 主导的 Agent驱动界面协议。两者目标相似但设计取舍不同：
 
-| 维度 | A@UI | A2UI |
-|------|------|------|
-| **后端接入** | 零依赖，任意语言输出纯 JSON | 需配置目录(catalog)、传输协商、消息路由 |
-| **指令集** | 3 条指令：render、update、destroy | 多种消息类型：surface、component、catalog、action、数据绑定 |
-| **前端适配** | 轻量运行时适配（Vue），可扩展 | 完整渲染器（Angular、Flutter、Lit、React） |
-| **传输** | 传输无关——SSE、WebSocket、HTTP Polling | A2A 扩展 + 基础 SSE |
-| **治理** | 个人开源维护 | Google + CopilotKit + 社区 |
-| **协议** | MIT | Apache 2.0 |
-| **稳定度** | Pre-stable (0.x) | v0.8 stable、v0.9 draft |
+| 维度         | A@UI                                   | A2UI                                                        |
+| ------------ | -------------------------------------- | ----------------------------------------------------------- |
+| **后端接入** | 零依赖，任意语言输出纯 JSON            | 需配置目录(catalog)、传输协商、消息路由                     |
+| **指令集**   | 3 条指令：render、update、destroy      | 多种消息类型：surface、component、catalog、action、数据绑定 |
+| **前端适配** | 轻量运行时适配（Vue），可扩展          | 完整渲染器（Angular、Flutter、Lit、React）                  |
+| **传输**     | 传输无关——SSE、WebSocket、HTTP Polling | A2A 扩展 + 基础 SSE                                         |
+| **治理**     | 个人开源维护                           | Google + CopilotKit + 社区                                  |
+| **协议**     | MIT                                    | Apache 2.0                                                  |
+| **稳定度**   | Pre-stable (0.x)                       | v0.8 stable、v0.9 draft                                     |
 
 A@UI 的核心取舍是 **后端接入的极致简洁**——任何能输出 JSON 的服务都能驱动 UI。如果你需要更丰富的协议（正式传输协商、多端渲染器开箱即用），A2UI 可能更合适。
 
@@ -169,11 +169,11 @@ npx skills add mqhe2007/a-at-ui --skill a-at-ui
 
 ## 仓库内容
 
-| 目录 | 说明 |
-|------|------|
-| `packages/a-at-ui/` | 前端运行时核心包（npm） |
-| `apps/website/` | 文档站（Nuxt） |
-| `skills/a-at-ui/` | Agent Skill 定义与 JSON Schema 资产 |
+| 目录                | 说明                                |
+| ------------------- | ----------------------------------- |
+| `packages/a-at-ui/` | 前端运行时核心包（npm）             |
+| `apps/website/`     | 文档站（Nuxt）                      |
+| `skills/a-at-ui/`   | Agent Skill 定义与 JSON Schema 资产 |
 
 ## 线上示例
 
