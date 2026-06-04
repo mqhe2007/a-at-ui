@@ -1191,6 +1191,81 @@ h3 {
   margin: 0;
 }
 
+/* ── Showcase ─────────────────────────────────────────────────────── */
+
+.showcase-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.showcase-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px 26px;
+  transition: all 0.26s;
+  text-decoration: none;
+}
+
+.showcase-card:hover {
+  background: var(--surface-hover);
+  border-color: var(--border-accent);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3), 0 0 0 1px var(--border-accent);
+}
+
+.showcase-card-placeholder {
+  opacity: 0.55;
+}
+
+.showcase-card-placeholder:hover {
+  opacity: 0.8;
+}
+
+.showcase-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-sm);
+  background: var(--cyan-dim);
+  border: 1px solid var(--border-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--cyan);
+  flex-shrink: 0;
+}
+
+.showcase-card strong {
+  display: block;
+  font-size: 17px;
+  color: #eef2ff;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.showcase-card span {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.65;
+}
+
+.showcase-cta {
+  margin-top: auto;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--cyan);
+}
+
+.showcase-card:hover .showcase-cta {
+  color: #38bdf8;
+}
+
 .contrib-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1344,6 +1419,10 @@ h3 {
   }
 
   .contrib-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .showcase-grid {
     grid-template-columns: 1fr;
   }
 

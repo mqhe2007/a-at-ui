@@ -23,11 +23,7 @@ data: [DONE]
 
 ## Node.js 示例
 
-参考 `examples/backend-node/src/server.js`：
-
-- 使用原生 `http` 模块
-- 返回 `text/event-stream`
-- 根据用户输入拼出 `PersonalProfileCard` 和 `ArticleList` 的 render 命令数组
+使用原生 `http` 模块、返回 `text/event-stream`，根据请求拼出对应的 render 命令数组。完整后端实践见 [mengqinghe.com](https://mengqinghe.com)。
 
 ## 实现步骤
 

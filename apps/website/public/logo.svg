@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 80" fill="none">
+  <g transform="translate(79, 0)">
+    <text x="0" y="56" font-family="system-ui, -apple-system, sans-serif" font-size="48" font-weight="700" fill="currentColor">A</text>
+    <text x="35" y="56" font-family="system-ui, -apple-system, sans-serif" font-size="48" font-weight="700" fill="#0EA5E9">@</text>
+    <text x="76" y="56" font-family="system-ui, -apple-system, sans-serif" font-size="48" font-weight="700" fill="currentColor">U</text>
+    <text x="112" y="56" font-family="system-ui, -apple-system, sans-serif" font-size="48" font-weight="700" fill="currentColor">I</text>
+  </g>
+</svg>

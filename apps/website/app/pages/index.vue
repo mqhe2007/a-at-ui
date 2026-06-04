@@ -1,32 +1,73 @@
 <script setup lang="ts">
-useHead({
-  title: 'A@UI — Protocol-first Agent UI',
-  meta: [
-    {
-      name: 'description',
-      content: 'A@UI：让每个 AI Agent 都能操控真实界面。无需 SDK 绑定，后端发 JSON，前端响应，支持任意语言，5 分钟接入。',
-    },
-  ],
+const { t, locale } = useI18n()
+const route = useRoute()
+
+/* ── SEO meta using useSeoMeta for locale-aware OG tags ────── */
+const siteUrl = 'https://a-at-ui.mengqinghe.com'
+const pageUrl = computed(() => `${siteUrl}${route.path}`)
+
+useSeoMeta({
+  title: () => locale.value === 'en'
+    ? 'A@UI — Protocol for AI Agent-driven Interfaces'
+    : 'A@UI — 让 AI Agent 驱动真实界面',
+  description: () => locale.value === 'en'
+    ? 'A protocol specification and lightweight frontend runtime for AI Agent-driven interfaces. Any backend emits JSON commands; the frontend renders real components.'
+    : 'A@UI：让每个 AI Agent 都能操控真实界面。无需 SDK 绑定，后端发 JSON，前端响应，支持任意语言，5 分钟接入。',
+  ogTitle: () => locale.value === 'en'
+    ? 'A@UI — Protocol for AI Agent-driven Interfaces'
+    : 'A@UI — 让 AI Agent 驱动真实界面',
+  ogDescription: () => locale.value === 'en'
+    ? 'A protocol specification and lightweight frontend runtime for AI Agent-driven interfaces. Three commands, one JSON stream, any language.'
+    : '三条指令、一个 JSON 流、任意后端语言。A@UI 让 AI Agent 直接驱动真实前端组件。',
+  ogUrl: pageUrl,
+  ogType: 'website',
+  ogImage: `${siteUrl}/og-image.svg`,
+  ogSiteName: 'A@UI',
+  twitterCard: 'summary_large_image',
+  twitterTitle: () => locale.value === 'en'
+    ? 'A@UI — Protocol for AI Agent-driven Interfaces'
+    : 'A@UI — 让 AI Agent 驱动真实界面',
+  twitterDescription: () => locale.value === 'en'
+    ? 'Three commands, one JSON stream. Any backend drives real UI from an AI Agent.'
+    : '三条指令、一个 JSON 流。任意后端，AI Agent 驱动真实界面。',
+  twitterImage: `${siteUrl}/og-image.svg`,
 })
 
-const { t } = useI18n()
-
-/* ── Code snippet constants (not translatable) ──────────────── */
-const renderCode = `{
+/* ── Code snippets (locale-aware) ──────────────────────────── */
+const renderCode = computed(() => locale.value === 'en'
+  ? `{
+  "type": "render",
+  "component": "PersonalProfileCard",
+  "params": {
+    "name": "Alex",
+    "title": "Content Strategist"
+  }
+}`
+  : `{
   "type": "render",
   "component": "PersonalProfileCard",
   "params": {
     "name": "陈叙",
     "title": "内容策略师"
   }
+}`)
+
+const updateCode = computed(() => locale.value === 'en'
+  ? `{
+  "type": "update",
+  "widgetId": "widget-1",
+  "params": {
+    "title": "Senior Content Strategist"
+  }
 }`
-const updateCode = `{
+  : `{
   "type": "update",
   "widgetId": "widget-1",
   "params": {
     "title": "资深内容策略师"
   }
-}`
+}`)
+
 const destroyCode = `{
   "type": "destroy",
   "widgetId": "widget-1"
@@ -312,6 +353,55 @@ onUnmounted(() => { })
               <pre><code>{{ skillInstallCode }}</code></pre>
             </div>
             <p>{{ t('skillInstallHint') }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Showcase -->
+    <section id="showcase" class="section section-alt">
+      <div class="container">
+        <div class="section-header section-header-center">
+          <p class="eyebrow">{{ t('showcaseEyebrow') }}</p>
+          <h2>{{ t('showcaseTitle') }}</h2>
+        </div>
+
+        <div class="showcase-grid">
+          <!-- Card 1: Live site -->
+          <a class="showcase-card reveal-item" href="https://mengqinghe.com" target="_blank" rel="noopener noreferrer">
+            <div class="showcase-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5" />
+                <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" stroke="currentColor" stroke-width="1.5" />
+              </svg>
+            </div>
+            <strong>{{ t('showcase1Title') }}</strong>
+            <span>{{ t('showcase1Desc') }}</span>
+            <span class="showcase-cta">{{ t('showcase1Cta') }}</span>
+          </a>
+
+          <!-- Card 2: Community submission (placeholder) -->
+          <a class="showcase-card showcase-card-placeholder reveal-item" href="https://github.com/mqhe2007/a-at-ui/issues" target="_blank" rel="noopener noreferrer">
+            <div class="showcase-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+              </svg>
+            </div>
+            <strong>{{ t('showcase2Title') }}</strong>
+            <span>{{ t('showcase2Desc') }}</span>
+            <span class="showcase-cta">{{ t('showcase2Cta') }}</span>
+          </a>
+
+          <!-- Card 3: Coming soon (placeholder) -->
+          <div class="showcase-card showcase-card-placeholder reveal-item">
+            <div class="showcase-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5" stroke-dasharray="4 3" />
+                <path d="M12 8v4l3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+              </svg>
+            </div>
+            <strong>{{ t('showcase3Title') }}</strong>
+            <span>{{ t('showcase3Desc') }}</span>
           </div>
         </div>
       </div>

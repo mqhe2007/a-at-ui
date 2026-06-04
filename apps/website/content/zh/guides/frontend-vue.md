@@ -91,6 +91,6 @@ app.use(createAAtUIPlugin({
 
 这些行为由 `a-at-ui/runtime/vue` 提供，集成时不应在业务项目中重新实现。
 
-## 示例
+## 线上示例
 
-完整示例见 `examples/frontend-vue`。
+A@UI 架构的完整实践示例见 [mengqinghe.com](https://mengqinghe.com)。

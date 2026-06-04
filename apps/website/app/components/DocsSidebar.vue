@@ -24,6 +24,9 @@ const nav = computed(() => [
       { path: '/docs/protocol/commands', label: t('docsNavCommands') },
       { path: '/docs/protocol/events', label: t('docsNavEvents') },
       { path: '/docs/protocol/lifecycle', label: t('docsNavLifecycle') },
+      { path: '/docs/protocol/transport', label: t('docsNavTransport') },
+      { path: '/docs/protocol/security', label: t('docsNavSecurity') },
+      { path: '/docs/protocol/errors', label: t('docsNavErrors') },
     ] as NavItem[],
   },
 ])
