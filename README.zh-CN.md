@@ -20,13 +20,8 @@
 
 ---
 
-<!--
-  TODO: 请替换为真实的 Demo GIF。
-  建议内容：15-30 秒录屏，展示 AI Agent 发出 render/update/destroy 命令、
-  前端实时渲染组件的过程。
--->
 <p align="center">
-  <img width="1138" height="574" alt="a-at-ui-demo-compressed" src="https://github.com/user-attachments/assets/8076afec-584a-4bd5-8704-7b8cccffddd7" />
+  <img width="1138" height="574" alt="A@UI Demo" src="https://github.com/user-attachments/assets/8076afec-584a-4bd5-8704-7b8cccffddd7" />
 </p>
 
 ---

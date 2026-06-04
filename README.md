@@ -20,13 +20,8 @@ Any backend emits a JSON command stream following the protocol. The frontend reg
 
 ---
 
-<!--
-  TODO: Replace placeholder with a real demo GIF.
-  Suggested content: 15–30s screen recording showing an AI Agent emitting render/update/destroy commands
-  and the frontend rendering them in real time.
--->
 <p align="center">
-  <img width="1138" height="574" alt="a-at-ui-demo-compressed" src="https://github.com/user-attachments/assets/8076afec-584a-4bd5-8704-7b8cccffddd7" />
+  <img width="1138" height="574" alt="A@UI Demo" src="https://github.com/user-attachments/assets/8076afec-584a-4bd5-8704-7b8cccffddd7" />
 </p>
 ---
 
