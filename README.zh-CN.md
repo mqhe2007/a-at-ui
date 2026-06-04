@@ -129,13 +129,14 @@ http.createServer((req, res) => {
 
 ## Agent Skill
 
-安装 A@UI Skill，让 AI Coding 工具（Claude Code、Codex、VS Code）直接读取协议规则和接入约束：
+A@UI 提供三个可安装的 Skill，分别面向不同使用场景：
 
 ```bash
-npx skills add mqhe2007/a-at-ui --skill a-at-ui
+npx skills add mqhe2007/a-at-ui --skill a-at-ui-manifest
+npx skills add mqhe2007/a-at-ui --skill a-at-ui-setup
+npx skills add mqhe2007/a-at-ui --skill a-at-ui-protocol
 ```
 
-三个子 Skill 分别面向不同角色：
 - `a-at-ui-manifest` — 组件库作者创建 manifest
 - `a-at-ui-setup` — 开发者接入前端运行时
 - `a-at-ui-protocol` — 后端 Agent 输出合规命令流
@@ -155,12 +156,6 @@ npx skills add mqhe2007/a-at-ui --skill a-at-ui
 | **稳定度**   | Pre-stable (0.x)                       | v0.8 stable、v0.9 draft                                     |
 
 A@UI 的核心取舍是 **后端接入的极致简洁**——任何能输出 JSON 的服务都能驱动 UI。如果你需要更丰富的协议（正式传输协商、多端渲染器开箱即用），A2UI 可能更合适。
-
-## 安装 Skill
-
-```bash
-npx skills add mqhe2007/a-at-ui --skill a-at-ui
-```
 
 ## 仓库内容
 

@@ -128,13 +128,14 @@ Documentation site: [a-at-ui.mengqinghe.com](https://a-at-ui.mengqinghe.com)
 
 ## Agent Skill
 
-Install the A@UI skill to let AI coding tools (Claude Code, Codex, VS Code) read the protocol rules and integration constraints directly:
+A@UI ships three installable skills for different roles:
 
 ```bash
-npx skills add mqhe2007/a-at-ui --skill a-at-ui
+npx skills add mqhe2007/a-at-ui --skill a-at-ui-manifest
+npx skills add mqhe2007/a-at-ui --skill a-at-ui-setup
+npx skills add mqhe2007/a-at-ui --skill a-at-ui-protocol
 ```
 
-Three sub-skills are available for different roles:
 - `a-at-ui-manifest` — for component library authors creating manifests
 - `a-at-ui-setup` — for developers wiring the frontend runtime
 - `a-at-ui-protocol` — for backend agents emitting protocol-compliant commands
@@ -154,12 +155,6 @@ Three sub-skills are available for different roles:
 | **Stability** | Pre-stable (0.x) | v0.8 stable, v0.9 draft |
 
 A@UI prioritizes **radical simplicity on the backend side** — any service that can emit JSON can drive the UI. If you want a richer protocol with formal transport negotiation and multiple renderers out of the box, A2UI may be a better fit.
-
-## Install the Skill
-
-```bash
-npx skills add mqhe2007/a-at-ui --skill a-at-ui
-```
 
 ## Repository Contents
 

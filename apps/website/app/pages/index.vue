@@ -72,7 +72,9 @@ const destroyCode = `{
   "type": "destroy",
   "widgetId": "widget-1"
 }`
-const skillInstallCode = `npx skills add mqhe2007/a-at-ui --skill a-at-ui`
+const skillInstallCode = `npx skills add mqhe2007/a-at-ui --skill a-at-ui-manifest
+npx skills add mqhe2007/a-at-ui --skill a-at-ui-setup
+npx skills add mqhe2007/a-at-ui --skill a-at-ui-protocol`
 
 
 onMounted(() => {
