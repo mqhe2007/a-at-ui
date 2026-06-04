@@ -26,9 +26,8 @@ Any backend emits a JSON command stream following the protocol. The frontend reg
   and the frontend rendering them in real time.
 -->
 <p align="center">
-  <img src="https://via.placeholder.com/720x400?text=A%40UI+Demo" alt="A@UI Demo" width="720">
+  <img width="1138" height="574" alt="a-at-ui-demo-compressed" src="https://github.com/user-attachments/assets/8076afec-584a-4bd5-8704-7b8cccffddd7" />
 </p>
-
 ---
 
 ## Why A@UI
