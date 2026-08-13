@@ -4,7 +4,7 @@ title: Component Manifest
 
 # Component Manifest
 
-Third-party component libraries declare their capabilities to the A@UI runtime by providing an importable `a-at-ui.manifest.json`.
+Third-party component libraries declare their capabilities to the Braid runtime by providing an importable `braid.manifest.json`.
 
 ## Minimal Manifest Structure
 
@@ -44,4 +44,4 @@ Third-party component libraries declare their capabilities to the A@UI runtime b
 
 ## Official Schema
 
-`assets/a-at-ui.manifest.schema.json`
+`assets/braid.manifest.schema.json`

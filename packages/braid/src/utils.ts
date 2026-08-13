@@ -1,10 +1,10 @@
-import type { AAtUICommand, AAtUIResponsePayload } from './types.js';
+import type { BraidCommand, BraidResponsePayload } from './types.js';
 
 export function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
 }
 
-export function validateAAtUICommand(value: unknown): value is AAtUICommand {
+export function validateBraidCommand(value: unknown): value is BraidCommand {
   if (!isRecord(value) || typeof value.type !== 'string') return false;
 
   if (value.type === 'render') {
@@ -25,6 +25,6 @@ export function validateAAtUICommand(value: unknown): value is AAtUICommand {
   return false;
 }
 
-export function validateAAtUIResponsePayload(value: unknown): value is AAtUIResponsePayload {
-  return isRecord(value) && Array.isArray(value.commands) && value.commands.every(validateAAtUICommand);
+export function validateBraidResponsePayload(value: unknown): value is BraidResponsePayload {
+  return isRecord(value) && Array.isArray(value.commands) && value.commands.every(validateBraidCommand);
 }

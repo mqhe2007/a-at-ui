@@ -4,11 +4,11 @@ title: Node.js 后端接入指南
 
 # Node.js 后端接入指南
 
-A@UI 的后端接入原则只有一条：消费协议，不消费 SDK。
+Braid 的后端接入原则只有一条：消费协议，不消费 SDK。
 
 ## 约束
 
-- 不安装任何 A@UI 后端 SDK
+- 不安装任何 Braid 后端 SDK
 - 只输出符合 `assets/commands.schema.json` 的 JSON 命令
 - 每条命令写成一行 `data: <json>`，结束时输出 `data: [DONE]`
 

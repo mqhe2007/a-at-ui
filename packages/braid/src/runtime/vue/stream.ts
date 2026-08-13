@@ -1,11 +1,11 @@
-import type { AAtUICommand } from '../../types.js';
-import type { AAtUIAdapter } from './adapter.js';
+import type { BraidCommand } from '../../types.js';
+import type { BraidAdapter } from './adapter.js';
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null;
 }
 
-function isAAtUICommand(value: unknown): value is AAtUICommand {
+function isBraidCommand(value: unknown): value is BraidCommand {
   if (!isRecord(value) || typeof value.type !== 'string') {
     return false;
   }
@@ -37,9 +37,9 @@ function isAAtUICommand(value: unknown): value is AAtUICommand {
   }
 }
 
-export async function consumeAAtUIStream(
+export async function consumeBraidStream(
   stream: ReadableStream<string | Uint8Array>,
-  adapter: AAtUIAdapter
+  adapter: BraidAdapter
 ): Promise<void> {
   const reader = stream.getReader();
   const decoder = new TextDecoder();
@@ -83,8 +83,8 @@ export async function consumeAAtUIStream(
           continue;
         }
 
-        if (!isAAtUICommand(parsed)) {
-          adapter.handleError(new Error('[A@UI] Invalid command payload.'), {
+        if (!isBraidCommand(parsed)) {
+          adapter.handleError(new Error('[Braid] Invalid command payload.'), {
             source: 'stream',
             raw: payload,
             command: parsed,
@@ -97,7 +97,7 @@ export async function consumeAAtUIStream(
     }
 
     if (buffer.trim()) {
-      adapter.handleError(new Error('[A@UI] Trailing partial SSE frame.'), {
+      adapter.handleError(new Error('[Braid] Trailing partial SSE frame.'), {
         source: 'stream',
         raw: buffer,
       });

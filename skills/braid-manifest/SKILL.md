@@ -1,34 +1,34 @@
 ---
-name: a-at-ui-manifest
-description: "Use when a component library author needs to create, validate, or maintain the a-at-ui.manifest.json file that declares components to the A@UI runtime. Covers manifest schema, component registration, params design, event definitions, and lifecycle declarations. Targets component library maintainers integrating with A@UI."
+name: braid-manifest
+description: "Use when a component library author needs to create, validate, or maintain the braid.manifest.json file that declares components to the Braid runtime. Covers manifest schema, component registration, params design, event definitions, and lifecycle declarations. Targets component library maintainers integrating with Braid."
 metadata:
-  author: a-at-ui
+  author: braid
   version: "0.2.0"
 ---
 
-# A@UI Manifest Skill
+# Braid Manifest Skill
 
 ## What This Skill Does
 
-This skill guides component library authors through creating and maintaining `a-at-ui.manifest.json` — the file that declares which components are available to the A@UI runtime and how AI agents can interact with them.
+This skill guides component library authors through creating and maintaining `braid.manifest.json` — the file that declares which components are available to the Braid runtime and how AI agents can interact with them.
 
 Use this skill when:
 
-- you are a component library author integrating with A@UI
-- you need to create a new `a-at-ui.manifest.json` from scratch
+- you are a component library author integrating with Braid
+- you need to create a new `braid.manifest.json` from scratch
 - you are adding new components to an existing library and need to update the manifest
 - you want to validate an existing manifest against the schema
 - you need to design component params, events, and lifecycle declarations
 
 Do not use this skill for:
 
-- installing A@UI in a consumer project (use `a-at-ui-setup`)
-- emitting A@UI commands from a backend agent (use `a-at-ui-protocol`)
-- wiring frontend runtime or framework adapters (use `a-at-ui-setup`)
+- installing Braid in a consumer project (use `braid-setup`)
+- emitting Braid commands from a backend agent (use `braid-protocol`)
+- wiring frontend runtime or framework adapters (use `braid-setup`)
 
 ## The Manifest File
 
-Every A@UI-compatible component library must ship a `a-at-ui.manifest.json` at its package root. This file tells the A@UI runtime and AI agents:
+Every Braid-compatible component library must ship a `braid.manifest.json` at its package root. This file tells the Braid runtime and AI agents:
 
 - **What components exist** — their names, descriptions
 - **What params they accept** — shape, required fields, types
@@ -337,7 +337,7 @@ Place the manifest at the package root alongside `package.json`:
 ```
 your-component-library/
   package.json
-  a-at-ui.manifest.json
+  braid.manifest.json
   src/
     ...
 ```
@@ -356,14 +356,14 @@ The manifest should be published as part of your npm package. Add it to your `pa
 {
   "files": [
     "dist",
-    "a-at-ui.manifest.json"
+    "braid.manifest.json"
   ]
 }
 ```
 
 Consumers will import it as:
 ```ts
-import manifest from 'your-component-library/a-at-ui.manifest.json'
+import manifest from 'your-component-library/braid.manifest.json'
 ```
 
 ## Common Pitfalls
@@ -434,19 +434,19 @@ Always explicitly declare lifecycle capabilities. Don't assume defaults. AI agen
 
 ```
 ┌─────────────────────────────────────────────────┐
-│ a-at-ui-manifest (this skill)                    │
+│ braid-manifest (this skill)                    │
 │ Component library authors create manifest.json   │
 └──────────────┬──────────────────────────────────┘
                │ ships manifest.json
                ▼
 ┌─────────────────────────────────────────────────┐
-│ a-at-ui-setup                                    │
+│ braid-setup                                    │
 │ Developers import manifest & wire runtime        │
 └──────────────┬──────────────────────────────────┘
                │ manifest injected into prompt
                ▼
 ┌─────────────────────────────────────────────────┐
-│ a-at-ui-protocol                                 │
+│ braid-protocol                                 │
 │ Backend agent reads manifest, emits commands     │
 └─────────────────────────────────────────────────┘
 ```
@@ -468,6 +468,6 @@ Before shipping a manifest, verify:
 
 ## References
 
-- [Component Manifest Guide](https://a-at-ui.mengqinghe.com/zh/guides/component-manifest)
-- [Commands Protocol Reference](../a-at-ui-protocol/SKILL.md) — the protocol that consumes the manifest
-- [Setup Skill](../a-at-ui-setup/SKILL.md) — how consumers use the manifest
+- [Component Manifest Guide](https://braid.mengqinghe.com/zh/guides/component-manifest)
+- [Commands Protocol Reference](../braid-protocol/SKILL.md) — the protocol that consumes the manifest
+- [Setup Skill](../braid-setup/SKILL.md) — how consumers use the manifest

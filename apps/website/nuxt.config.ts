@@ -26,7 +26,7 @@ export default defineNuxtConfig({
     langDir: 'locales',
     detectBrowserLanguage: {
       useCookie: true,
-      cookieKey: 'a-at-ui-website-lang',
+      cookieKey: 'braid-website-lang',
       fallbackLocale: 'zh',
     },
     bundle: {

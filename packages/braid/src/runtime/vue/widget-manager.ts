@@ -1,15 +1,15 @@
 import { createApp, h, reactive, type App, type Component, type Reactive } from 'vue';
 import type {
-  AAtUICommand,
-  AAtUIDestroyCommand,
-  AAtUIEvent,
-  AAtUIManifest,
-  AAtUIManifestComponent,
-  AAtUIRenderCommand,
-  AAtUISerializableValue,
-  AAtUIUpdateCommand,
+  BraidCommand,
+  BraidDestroyCommand,
+  BraidEvent,
+  BraidManifest,
+  BraidManifestComponent,
+  BraidRenderCommand,
+  BraidSerializableValue,
+  BraidUpdateCommand,
 } from '../../types.js';
-import type { AAtUIAdapterOptions, AAtUIVueComponentEvent } from './adapter.js';
+import type { BraidAdapterOptions, BraidVueComponentEvent } from './adapter.js';
 
 interface WidgetInstance {
   widgetId: string;
@@ -21,11 +21,11 @@ interface WidgetInstance {
 
 export interface WidgetManagerOptions
   extends Pick<
-    AAtUIAdapterOptions,
+    BraidAdapterOptions,
     'createWidgetId' | 'manifest' | 'mountTarget' | 'onError' | 'onEvent' | 'onWidgetReady' | 'components'
   > { }
 
-function isSerializableValue(value: unknown): value is AAtUISerializableValue {
+function isSerializableValue(value: unknown): value is BraidSerializableValue {
   if (
     value === null ||
     typeof value === 'string' ||
@@ -59,7 +59,7 @@ function resolveMountTarget(mountTarget: string | HTMLElement): HTMLElement {
 
   const element = document.querySelector(mountTarget);
   if (!(element instanceof HTMLElement)) {
-    throw new Error(`[A@UI] Mount target not found: ${mountTarget}`);
+    throw new Error(`[Braid] Mount target not found: ${mountTarget}`);
   }
 
   return element;
@@ -67,11 +67,11 @@ function resolveMountTarget(mountTarget: string | HTMLElement): HTMLElement {
 
 interface ComponentEntry {
   component: Component;
-  definition: AAtUIManifestComponent;
+  definition: BraidManifestComponent;
 }
 
 function buildComponentMap(
-  manifest: AAtUIManifest,
+  manifest: BraidManifest,
   components: Record<string, Component>,
 ): Map<string, ComponentEntry> {
   const map = new Map<string, ComponentEntry>();
@@ -80,7 +80,7 @@ function buildComponentMap(
     const comp = components[def.name];
     if (!comp) {
       throw new Error(
-        `[A@UI] Manifest component "${def.name}" has no matching Vue component. ` +
+        `[Braid] Manifest component "${def.name}" has no matching Vue component. ` +
         `Provide it via components map or register it globally with app.component().`
       );
     }
@@ -105,30 +105,30 @@ export class WidgetManager {
   private getComponentEntry(componentName: string): ComponentEntry {
     const entry = this.componentsByName.get(componentName);
     if (!entry) {
-      throw new Error(`[A@UI] Unknown component: ${componentName}`);
+      throw new Error(`[Braid] Unknown component: ${componentName}`);
     }
     return entry;
   }
 
-  private emitEvent(widgetId: string, event: AAtUIVueComponentEvent): void {
+  private emitEvent(widgetId: string, event: BraidVueComponentEvent): void {
     if (!isSerializableValue(event.payload)) {
-      throw new Error(`[A@UI] Event payload must be JSON-serializable for widget ${widgetId}`);
+      throw new Error(`[Braid] Event payload must be JSON-serializable for widget ${widgetId}`);
     }
 
-    const fullEvent: AAtUIEvent<Record<string, AAtUISerializableValue>> = {
+    const fullEvent: BraidEvent<Record<string, BraidSerializableValue>> = {
       ...event,
       widgetId,
       timestamp: Date.now(),
-      payload: event.payload as Record<string, AAtUISerializableValue>,
+      payload: event.payload as Record<string, BraidSerializableValue>,
     };
 
     this.options.onEvent?.(fullEvent);
   }
 
-  create(command: AAtUIRenderCommand): string {
+  create(command: BraidRenderCommand): string {
     const entry = this.getComponentEntry(command.component);
     if (!entry.definition.lifecycle.render) {
-      throw new Error(`[A@UI] Component does not support render: ${command.component}`);
+      throw new Error(`[Braid] Component does not support render: ${command.component}`);
     }
 
     const widgetId = this.options.createWidgetId?.() ?? createDefaultWidgetId();
@@ -138,7 +138,7 @@ export class WidgetManager {
     this.mountTargetEl.appendChild(container);
 
     const props = reactive<Record<string, unknown>>({ ...(command.params ?? {}) });
-    const onEvent = (event: AAtUIVueComponentEvent) => this.emitEvent(widgetId, event);
+    const onEvent = (event: BraidVueComponentEvent) => this.emitEvent(widgetId, event);
 
     const app = createApp({
       render: () => h(entry.component, { ...props, onEvent }),
@@ -157,31 +157,31 @@ export class WidgetManager {
     return widgetId;
   }
 
-  update(command: AAtUIUpdateCommand): void {
+  update(command: BraidUpdateCommand): void {
     const instance = this.widgets.get(command.widgetId);
     if (!instance) {
-      console.warn(`[A@UI] Unknown widget for update: ${command.widgetId}`);
+      console.warn(`[Braid] Unknown widget for update: ${command.widgetId}`);
       return;
     }
 
     const entry = this.getComponentEntry(instance.component);
     if (!entry.definition.lifecycle.update) {
-      throw new Error(`[A@UI] Component does not support update: ${instance.component}`);
+      throw new Error(`[Braid] Component does not support update: ${instance.component}`);
     }
 
     Object.assign(instance.props, command.params);
   }
 
-  destroy(command: AAtUIDestroyCommand): void {
+  destroy(command: BraidDestroyCommand): void {
     const instance = this.widgets.get(command.widgetId);
     if (!instance) {
-      console.warn(`[A@UI] Unknown widget for destroy: ${command.widgetId}`);
+      console.warn(`[Braid] Unknown widget for destroy: ${command.widgetId}`);
       return;
     }
 
     const entry = this.getComponentEntry(instance.component);
     if (!entry.definition.lifecycle.destroy) {
-      throw new Error(`[A@UI] Component does not support destroy: ${instance.component}`);
+      throw new Error(`[Braid] Component does not support destroy: ${instance.component}`);
     }
 
     instance.app.unmount();
@@ -193,7 +193,7 @@ export class WidgetManager {
     return this.widgets.get(widgetId);
   }
 
-  dispatch(command: AAtUICommand): void {
+  dispatch(command: BraidCommand): void {
     switch (command.type) {
       case 'render':
         this.create(command);
@@ -205,7 +205,7 @@ export class WidgetManager {
         this.destroy(command);
         return;
       default:
-        throw new Error(`[A@UI] Unsupported command type: ${(command as { type: string }).type}`);
+        throw new Error(`[Braid] Unsupported command type: ${(command as { type: string }).type}`);
     }
   }
 }

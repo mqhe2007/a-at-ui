@@ -1,31 +1,31 @@
-# A@UI
+# Braid
 
 [中文](./README.zh-CN.md)
 
-[![npm version](https://img.shields.io/npm/v/a-at-ui)](https://www.npmjs.com/package/a-at-ui)
-[![release](https://img.shields.io/github/v/tag/mqhe2007/a-at-ui?sort=semver&label=release)](https://github.com/mqhe2007/a-at-ui/releases)
-[![license](https://img.shields.io/github/license/mqhe2007/a-at-ui)](https://github.com/mqhe2007/a-at-ui/blob/main/LICENSE)
-[![CI](https://github.com/mqhe2007/a-at-ui/actions/workflows/test.yml/badge.svg)](https://github.com/mqhe2007/a-at-ui/actions/workflows/test.yml)
-[![skills.sh](https://skills.sh/b/mqhe2007/a-at-ui)](https://skills.sh/mqhe2007/a-at-ui)
-[![docs](https://img.shields.io/badge/docs-online-0A7C66)](https://a-at-ui.mengqinghe.com)
+[![npm version](https://img.shields.io/npm/v/braid)](https://www.npmjs.com/package/braid)
+[![release](https://img.shields.io/github/v/tag/mqhe2007/braid?sort=semver&label=release)](https://github.com/mqhe2007/braid/releases)
+[![license](https://img.shields.io/github/license/mqhe2007/braid)](https://github.com/mqhe2007/braid/blob/main/LICENSE)
+[![CI](https://github.com/mqhe2007/braid/actions/workflows/test.yml/badge.svg)](https://github.com/mqhe2007/braid/actions/workflows/test.yml)
+[![skills.sh](https://skills.sh/b/mqhe2007/braid)](https://skills.sh/mqhe2007/braid)
+[![docs](https://img.shields.io/badge/docs-online-0A7C66)](https://braid.mengqinghe.com)
 
 **A protocol specification and lightweight frontend runtime for AI Agent-driven interfaces.**
 
 Any backend emits a JSON command stream following the protocol. The frontend registers manifests and components, then consumes the stream to render real UI. No backend SDK, no tight coupling, no arbitrary code execution.
 
 > [!WARNING]
-> A@UI is under active development and should be treated as unstable until a stable release. Protocol details, runtime APIs, manifest shapes, and command semantics may change.
+> Braid is under active development and should be treated as unstable until a stable release. Protocol details, runtime APIs, manifest shapes, and command semantics may change.
 >
 > If adopting in production: pin an exact version, validate manifests against the schema assets in this repository, read release notes before upgrading, and keep graceful fallbacks for unknown commands or rendering behavior.
 
 ---
 
 <p align="center">
-  <img width="1138" height="574" alt="A@UI Demo" src="https://github.com/user-attachments/assets/8076afec-584a-4bd5-8704-7b8cccffddd7" />
+  <img width="1138" height="574" alt="Braid Demo" src="https://github.com/user-attachments/assets/8076afec-584a-4bd5-8704-7b8cccffddd7" />
 </p>
 ---
 
-## Why A@UI
+## Why Braid
 
 Building AI-driven interfaces today means either:
 
@@ -33,7 +33,7 @@ Building AI-driven interfaces today means either:
 - **Using a document-generation approach** — rich text, not real interactive components.
 - **Adopting a heavy protocol** — multi-component catalogs, transport negotiation, schema registries on both ends.
 
-A@UI takes a different route: **three commands, one JSON stream, zero backend dependencies.**
+Braid takes a different route: **three commands, one JSON stream, zero backend dependencies.**
 
 ```text
 render   → Create a component instance with initial data
@@ -47,7 +47,7 @@ The backend simply emits these commands over any transport (SSE, WebSocket, HTTP
 
 ```
 ┌─────────────┐     render/update/destroy      ┌───────────────┐
-│  AI Agent   │ ────────── JSON ──────────▶    │  A@UI Runtime │
+│  AI Agent   │ ────────── JSON ──────────▶    │  Braid Runtime │
 │  (any lang) │                                 │  (frontend)   │
 └─────────────┘                                 └───────┬───────┘
                                                          │
@@ -68,22 +68,22 @@ The backend simply emits these commands over any transport (SSE, WebSocket, HTTP
 ### 1. Install
 
 ```bash
-npm install a-at-ui
+npm install braid
 ```
 
 ### 2. Register components and install the plugin
 
 ```ts
 import { createApp } from 'vue'
-import { createAAtUIPlugin } from 'a-at-ui/runtime/vue'
-import manifest from './a-at-ui.manifest.json'
+import { createBraidPlugin } from 'braid/runtime/vue'
+import manifest from './braid.manifest.json'
 import SearchBox from './SearchBox.vue'
 import ArticleList from './ArticleList.vue'
 
 const app = createApp(App)
 app.component('SearchBox', SearchBox)
 app.component('ArticleList', ArticleList)
-app.use(createAAtUIPlugin({ manifest }))
+app.use(createBraidPlugin({ manifest }))
 app.mount('#app')
 ```
 
@@ -117,34 +117,34 @@ That's it. No backend SDK, no transport negotiation, no catalog registration.
 
 ## Full Documentation
 
-Documentation site: [a-at-ui.mengqinghe.com](https://a-at-ui.mengqinghe.com)
+Documentation site: [braid.mengqinghe.com](https://braid.mengqinghe.com)
 
-- [Vue Frontend Guide](https://a-at-ui.mengqinghe.com/docs/guides/frontend-vue)
-- [Node.js Backend Guide](https://a-at-ui.mengqinghe.com/docs/guides/backend-nodejs)
-- [Component Manifest](https://a-at-ui.mengqinghe.com/docs/guides/component-manifest)
-- [Command Protocol](https://a-at-ui.mengqinghe.com/docs/protocol/commands)
-- [Event Protocol](https://a-at-ui.mengqinghe.com/docs/protocol/events)
-- [Lifecycle & Error Strategy](https://a-at-ui.mengqinghe.com/docs/protocol/lifecycle)
+- [Vue Frontend Guide](https://braid.mengqinghe.com/docs/guides/frontend-vue)
+- [Node.js Backend Guide](https://braid.mengqinghe.com/docs/guides/backend-nodejs)
+- [Component Manifest](https://braid.mengqinghe.com/docs/guides/component-manifest)
+- [Command Protocol](https://braid.mengqinghe.com/docs/protocol/commands)
+- [Event Protocol](https://braid.mengqinghe.com/docs/protocol/events)
+- [Lifecycle & Error Strategy](https://braid.mengqinghe.com/docs/protocol/lifecycle)
 
 ## Agent Skill
 
-A@UI ships three installable skills for different roles:
+Braid ships three installable skills for different roles:
 
 ```bash
-npx skills add mqhe2007/a-at-ui --skill a-at-ui-manifest
-npx skills add mqhe2007/a-at-ui --skill a-at-ui-setup
-npx skills add mqhe2007/a-at-ui --skill a-at-ui-protocol
+npx skills add mqhe2007/braid --skill braid-manifest
+npx skills add mqhe2007/braid --skill braid-setup
+npx skills add mqhe2007/braid --skill braid-protocol
 ```
 
-- `a-at-ui-manifest` — for component library authors creating manifests
-- `a-at-ui-setup` — for developers wiring the frontend runtime
-- `a-at-ui-protocol` — for backend agents emitting protocol-compliant commands
+- `braid-manifest` — for component library authors creating manifests
+- `braid-setup` — for developers wiring the frontend runtime
+- `braid-protocol` — for backend agents emitting protocol-compliant commands
 
 ## Comparison with A2UI
 
 [A2UI](https://a2ui.org/) is a protocol for agent-driven interfaces backed by Google. Both projects share similar high-level goals. The key differences:
 
-| Dimension | A@UI | A2UI |
+| Dimension | Braid | A2UI |
 |-----------|------|------|
 | **Backend surface** | Zero dependencies — any language emits plain JSON | Requires catalog setup, transport negotiation, message routing |
 | **Command surface** | 3 commands: render, update, destroy | Multiple message types: surfaces, components, catalogs, actions, data binding |
@@ -154,19 +154,19 @@ npx skills add mqhe2007/a-at-ui --skill a-at-ui-protocol
 | **License** | MIT | Apache 2.0 |
 | **Stability** | Pre-stable (0.x) | v0.8 stable, v0.9 draft |
 
-A@UI prioritizes **radical simplicity on the backend side** — any service that can emit JSON can drive the UI. If you want a richer protocol with formal transport negotiation and multiple renderers out of the box, A2UI may be a better fit.
+Braid prioritizes **radical simplicity on the backend side** — any service that can emit JSON can drive the UI. If you want a richer protocol with formal transport negotiation and multiple renderers out of the box, A2UI may be a better fit.
 
 ## Repository Contents
 
 | Directory | Purpose |
 |-----------|---------|
-| `packages/a-at-ui/` | Core frontend runtime package (npm) |
+| `packages/braid/` | Core frontend runtime package (npm) |
 | `apps/website/` | Documentation site (Nuxt) |
-| `skills/a-at-ui/` | Agent skill definitions and JSON Schema assets |
+| `skills/braid/` | Agent skill definitions and JSON Schema assets |
 
 ## Live Example
 
-A production site built with the A@UI architecture: [mengqinghe.com](https://mengqinghe.com)
+A production site built with the Braid architecture: [mengqinghe.com](https://mengqinghe.com)
 
 ## Contributing
 

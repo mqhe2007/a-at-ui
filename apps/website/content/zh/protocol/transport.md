@@ -4,11 +4,11 @@ title: 传输规范
 
 # 传输规范
 
-A@UI 当前支持的传输格式为 SSE (Server-Sent Events)。
+Braid 当前支持的传输格式为 SSE (Server-Sent Events)。
 
 ## SSE 格式
 
-每条 A@UI 命令以一行 `data: <json>` 发送，以 `\n\n` 结尾。命令流以 `data: [DONE]` 标记结束。
+每条 Braid 命令以一行 `data: <json>` 发送，以 `\n\n` 结尾。命令流以 `data: [DONE]` 标记结束。
 
 ```text
 data: {"type":"render","component":"SearchBox","params":{"placeholder":"搜索项目"}}
@@ -20,7 +20,7 @@ data: [DONE]
 
 ## 流解析行为
 
-`consumeAAtUIStream()` 按以下规则解析 SSE 流：
+`consumeBraidStream()` 按以下规则解析 SSE 流：
 
 1. 逐行读取，过滤空行。
 2. 只处理以 `data:` 开头的行，其他行静默跳过。
@@ -49,5 +49,5 @@ WebSocket 和 HTTP Polling 是计划中的传输方式，当前尚未实现具�
 
 ## 参考
 
-- `packages/a-at-ui/src/runtime/vue/stream.ts` — SSE 流解析实现
-- `packages/a-at-ui/src/runtime/vue/adapter.ts` — `dispatch()` 和 `handleError()` 接口
+- `packages/braid/src/runtime/vue/stream.ts` — SSE 流解析实现
+- `packages/braid/src/runtime/vue/adapter.ts` — `dispatch()` 和 `handleError()` 接口

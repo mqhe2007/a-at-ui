@@ -4,11 +4,11 @@ title: 安全模型
 
 # 安全模型
 
-A@UI 的安全设计基于**声明式组件约束**——Agent 只能使用预先注册的组件，不能注入任意代码或操作未授权的 DOM。
+Braid 的安全设计基于**声明式组件约束**——Agent 只能使用预先注册的组件，不能注入任意代码或操作未授权的 DOM。
 
 ## 组件白名单
 
-所有可被 Agent 驱动的 UI 组件必须通过 `a-at-ui.manifest.json` 声明。Runtime 在初始化时构建组件映射表：
+所有可被 Agent 驱动的 UI 组件必须通过 `braid.manifest.json` 声明。Runtime 在初始化时构建组件映射表：
 
 - 插件安装阶段：遍历 manifest 中的每个组件名，从显式映射或 Vue 全局注册表中查找对应实现
 - 组件未找到 → 初始化抛错，拒绝启动
@@ -58,6 +58,6 @@ Agent 无法在流中加入未注册组件的 `render` 命令。
 
 ## 参考
 
-- `packages/a-at-ui/src/utils.ts` — `validateAAtUICommand()` 校验函数
-- `packages/a-at-ui/src/runtime/vue/widget-manager.ts` — `buildComponentMap()`、`isSerializableValue()`、生命周期检查
-- `packages/a-at-ui/src/runtime/vue/stream.ts` — 流解析中的命令校验
+- `packages/braid/src/utils.ts` — `validateBraidCommand()` 校验函数
+- `packages/braid/src/runtime/vue/widget-manager.ts` — `buildComponentMap()`、`isSerializableValue()`、生命周期检查
+- `packages/braid/src/runtime/vue/stream.ts` — 流解析中的命令校验

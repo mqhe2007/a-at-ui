@@ -1,8 +1,8 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { defineComponent, h, nextTick } from 'vue';
-import type { AAtUIEvent, AAtUIManifest, AAtUISerializableValue } from '../../src/types.js';
-import { consumeAAtUIStream, createAAtUIAdapter } from '../../src/runtime/vue/index.js';
-import type { AAtUIAdapterErrorContext } from '../../src/runtime/vue/index.js';
+import type { BraidEvent, BraidManifest, BraidSerializableValue } from '../../src/types.js';
+import { consumeBraidStream, createBraidAdapter } from '../../src/runtime/vue/index.js';
+import type { BraidAdapterErrorContext } from '../../src/runtime/vue/index.js';
 
 const SearchBoxComponent = defineComponent({
   props: {
@@ -40,7 +40,7 @@ const DataTableComponent = defineComponent({
   },
 });
 
-function createManifest(): AAtUIManifest {
+function createManifest(): BraidManifest {
   return {
     specVersion: '0.1.0',
     library: {
@@ -80,7 +80,7 @@ function createManifest(): AAtUIManifest {
   };
 }
 
-describe('A@UI Vue runtime', () => {
+describe('Braid Vue runtime', () => {
   let mountTarget: HTMLDivElement;
 
   beforeEach(() => {
@@ -101,7 +101,7 @@ describe('A@UI Vue runtime', () => {
       DataTable: DataTableComponent,
     };
 
-    const adapter = createAAtUIAdapter({
+    const adapter = createBraidAdapter({
       components,
       manifest,
       mountTarget: '#test-root',
@@ -139,7 +139,7 @@ describe('A@UI Vue runtime', () => {
       DataTable: DataTableComponent,
     };
 
-    const adapter = createAAtUIAdapter({
+    const adapter = createBraidAdapter({
       components,
       manifest,
       mountTarget: '#test-root',
@@ -162,7 +162,7 @@ describe('A@UI Vue runtime', () => {
       DataTable: DataTableComponent,
     };
 
-    const adapter = createAAtUIAdapter({
+    const adapter = createBraidAdapter({
       components,
       manifest,
       mountTarget: '#test-root',
@@ -183,14 +183,14 @@ describe('A@UI Vue runtime', () => {
   });
 
   it('wraps emitted component events with widget metadata', async () => {
-    const receivedEvents: AAtUIEvent<Record<string, AAtUISerializableValue>>[] = [];
+    const receivedEvents: BraidEvent<Record<string, BraidSerializableValue>>[] = [];
     const manifest = createManifest();
     const components = {
       SearchBox: SearchBoxComponent,
       DataTable: DataTableComponent,
     };
 
-    const adapter = createAAtUIAdapter({
+    const adapter = createBraidAdapter({
       components,
       manifest,
       mountTarget: '#test-root',
@@ -220,14 +220,14 @@ describe('A@UI Vue runtime', () => {
   });
 
   it('surfaces invalid stream payloads through onError', async () => {
-    const errors: Array<{ error: Error; context: AAtUIAdapterErrorContext }> = [];
+    const errors: Array<{ error: Error; context: BraidAdapterErrorContext }> = [];
     const manifest = createManifest();
     const components = {
       SearchBox: SearchBoxComponent,
       DataTable: DataTableComponent,
     };
 
-    const adapter = createAAtUIAdapter({
+    const adapter = createBraidAdapter({
       components,
       manifest,
       mountTarget: '#test-root',
@@ -245,7 +245,7 @@ describe('A@UI Vue runtime', () => {
       },
     });
 
-    await consumeAAtUIStream(stream, adapter);
+    await consumeBraidStream(stream, adapter);
 
     expect(errors).toHaveLength(1);
     expect(errors[0].context.source).toBe('stream');
@@ -258,7 +258,7 @@ describe('A@UI Vue runtime', () => {
       DataTable: DataTableComponent,
     };
 
-    const adapter = createAAtUIAdapter({
+    const adapter = createBraidAdapter({
       components,
       manifest,
       mountTarget,
@@ -275,21 +275,21 @@ describe('A@UI Vue runtime', () => {
       },
     });
 
-    await consumeAAtUIStream(stream, adapter);
+    await consumeBraidStream(stream, adapter);
     await nextTick();
 
     expect(document.querySelector('#data-table')?.textContent).toBe('From Stream');
   });
 
   it('routes structurally invalid command payloads to onError', async () => {
-    const errors: Array<{ error: Error; context: AAtUIAdapterErrorContext }> = [];
+    const errors: Array<{ error: Error; context: BraidAdapterErrorContext }> = [];
     const manifest = createManifest();
     const components = {
       SearchBox: SearchBoxComponent,
       DataTable: DataTableComponent,
     };
 
-    const adapter = createAAtUIAdapter({
+    const adapter = createBraidAdapter({
       components,
       manifest,
       mountTarget,
@@ -307,14 +307,14 @@ describe('A@UI Vue runtime', () => {
       },
     });
 
-    await consumeAAtUIStream(stream, adapter);
+    await consumeBraidStream(stream, adapter);
 
     expect(errors).toHaveLength(1);
     expect(errors[0].context).toMatchObject({ source: 'stream', command: { foo: 'bar' } });
   });
 });
 
-describe('AAtUIAdapter error routing', () => {
+describe('BraidAdapter error routing', () => {
   let mountTarget: HTMLDivElement;
 
   beforeEach(() => {
@@ -328,14 +328,14 @@ describe('AAtUIAdapter error routing', () => {
   });
 
   it('routes dispatch errors to onError when provided instead of throwing', () => {
-    const errors: Array<{ error: Error; context: AAtUIAdapterErrorContext }> = [];
+    const errors: Array<{ error: Error; context: BraidAdapterErrorContext }> = [];
     const manifest = createManifest();
     const components = {
       SearchBox: SearchBoxComponent,
       DataTable: DataTableComponent,
     };
 
-    const adapter = createAAtUIAdapter({
+    const adapter = createBraidAdapter({
       components,
       manifest,
       mountTarget: '#error-test-root',
@@ -354,7 +354,7 @@ describe('AAtUIAdapter error routing', () => {
   });
 });
 
-describe('AAtUIAdapter components validation', () => {
+describe('BraidAdapter components validation', () => {
   it('throws when a manifest component is missing from the components map', () => {
     const manifest = createManifest();
     const components = {
@@ -363,7 +363,7 @@ describe('AAtUIAdapter components validation', () => {
     };
 
     expect(() => {
-      createAAtUIAdapter({
+      createBraidAdapter({
         components,
         manifest,
         mountTarget: document.createElement('div'),
@@ -381,7 +381,7 @@ describe('AAtUIAdapter components validation', () => {
     };
 
     expect(() => {
-      createAAtUIAdapter({
+      createBraidAdapter({
         components,
         manifest,
         mountTarget: document.createElement('div'),
@@ -419,7 +419,7 @@ describe('lifecycle flags', () => {
       DataTable: DataTableComponent,
     };
 
-    const adapter = createAAtUIAdapter({
+    const adapter = createBraidAdapter({
       components,
       manifest,
       mountTarget: '#lifecycle-test-root',
@@ -441,7 +441,7 @@ describe('lifecycle flags', () => {
       DataTable: DataTableComponent,
     };
 
-    const adapter = createAAtUIAdapter({
+    const adapter = createBraidAdapter({
       components,
       manifest,
       mountTarget: '#lifecycle-test-root',

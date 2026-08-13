@@ -4,11 +4,11 @@ title: Transport Specification
 
 # Transport Specification
 
-A@UI currently supports SSE (Server-Sent Events) as the transport format.
+Braid currently supports SSE (Server-Sent Events) as the transport format.
 
 ## SSE Format
 
-Each A@UI command is sent as a single `data: <json>` line terminated by `\n\n`. The command stream ends with `data: [DONE]`.
+Each Braid command is sent as a single `data: <json>` line terminated by `\n\n`. The command stream ends with `data: [DONE]`.
 
 ```text
 data: {"type":"render","component":"SearchBox","params":{"placeholder":"Search projects"}}
@@ -20,7 +20,7 @@ data: [DONE]
 
 ## Stream Parsing Behavior
 
-`consumeAAtUIStream()` parses SSE streams with the following rules:
+`consumeBraidStream()` parses SSE streams with the following rules:
 
 1. Reads line by line, ignoring empty lines.
 2. Only lines starting with `data:` are processed; other lines are silently skipped.
@@ -49,5 +49,5 @@ WebSocket and HTTP Polling are planned transport options but have no runtime con
 
 ## References
 
-- `packages/a-at-ui/src/runtime/vue/stream.ts` — SSE stream parser implementation
-- `packages/a-at-ui/src/runtime/vue/adapter.ts` — `dispatch()` and `handleError()` interfaces
+- `packages/braid/src/runtime/vue/stream.ts` — SSE stream parser implementation
+- `packages/braid/src/runtime/vue/adapter.ts` — `dispatch()` and `handleError()` interfaces

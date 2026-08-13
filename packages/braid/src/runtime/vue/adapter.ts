@@ -1,59 +1,59 @@
 import { inject, type App, type Component } from 'vue';
 import type {
-  AAtUICommand,
-  AAtUIEvent,
-  AAtUIManifest,
-  AAtUISerializableValue,
+  BraidCommand,
+  BraidEvent,
+  BraidManifest,
+  BraidSerializableValue,
 } from '../../types.js';
 import { WidgetManager } from './widget-manager.js';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
-export type AAtUIVueComponentEvent = Omit<AAtUIEvent, 'widgetId' | 'timestamp'>;
+export type BraidVueComponentEvent = Omit<BraidEvent, 'widgetId' | 'timestamp'>;
 
-export interface AAtUIAdapterErrorContext {
+export interface BraidAdapterErrorContext {
   source: 'stream' | 'dispatch' | 'config';
   raw?: string;
   command?: unknown;
 }
 
-export interface AAtUIAdapterOptions {
+export interface BraidAdapterOptions {
   components: Record<string, Component>;
-  manifest: AAtUIManifest;
+  manifest: BraidManifest;
   mountTarget: string | HTMLElement;
   onWidgetReady?: (widgetId: string, component: string, rootEl: HTMLElement) => void;
-  onEvent?: (event: AAtUIEvent<Record<string, AAtUISerializableValue>>) => void;
-  onError?: (error: Error, context: AAtUIAdapterErrorContext) => void;
+  onEvent?: (event: BraidEvent<Record<string, BraidSerializableValue>>) => void;
+  onError?: (error: Error, context: BraidAdapterErrorContext) => void;
   createWidgetId?: () => string;
 }
 
-export interface AAtUIVuePluginOptions {
-  manifest: AAtUIManifest;
+export interface BraidVuePluginOptions {
+  manifest: BraidManifest;
   /** 可选：显式指定组件映射，优先级高于全局注册的组件。 */
   components?: Record<string, Component>;
 }
 
 /** createAdapter 的运行时参数（mountTarget + 回调等动态部分）。 */
-export interface AAtUIAdapterRuntimeOptions {
+export interface BraidAdapterRuntimeOptions {
   mountTarget: string | HTMLElement;
   onWidgetReady?: (widgetId: string, component: string, rootEl: HTMLElement) => void;
-  onEvent?: (event: AAtUIEvent<Record<string, AAtUISerializableValue>>) => void;
-  onError?: (error: Error, context: AAtUIAdapterErrorContext) => void;
+  onEvent?: (event: BraidEvent<Record<string, BraidSerializableValue>>) => void;
+  onError?: (error: Error, context: BraidAdapterErrorContext) => void;
 }
 
 // ─── Plugin symbol ───────────────────────────────────────────────────────────
 
-const AAtUIAdapterKey = Symbol('AAtUIAdapter');
+const BraidAdapterKey = Symbol('BraidAdapter');
 
 // ─── Plugin ──────────────────────────────────────────────────────────────────
 
 /**
- * 创建 A@UI Vue 插件。
+ * 创建 Braid Vue 插件。
  *
- * 安装后通过 `useAAtUIAdapter()` 获取 `createAdapter` 工厂函数。
+ * 安装后通过 `useBraidAdapter()` 获取 `createAdapter` 工厂函数。
  * 组件解析优先级：`components` 显式映射 > `app.component()` 全局注册。
  */
-export function createAAtUIPlugin(options: AAtUIVuePluginOptions)
+export function createBraidPlugin(options: BraidVuePluginOptions)
   : { install(app: App, ...options: any[]): any } {
   const { manifest, components: explicitComponents } = options;
 
@@ -70,7 +70,7 @@ export function createAAtUIPlugin(options: AAtUIVuePluginOptions)
           const globalComp = app.component(name);
           if (!globalComp) {
             throw new Error(
-              `[A@UI] Component "${name}" not found. ` +
+              `[Braid] Component "${name}" not found. ` +
               `Register it globally with app.component() or provide it explicitly via the "components" option.`
             );
           }
@@ -79,8 +79,8 @@ export function createAAtUIPlugin(options: AAtUIVuePluginOptions)
       }
 
       const adapterFactory = {
-        createAdapter(runtimeOptions: AAtUIAdapterRuntimeOptions): AAtUIAdapter {
-          return createAAtUIAdapter({
+        createAdapter(runtimeOptions: BraidAdapterRuntimeOptions): BraidAdapter {
+          return createBraidAdapter({
             components,
             manifest,
             ...runtimeOptions,
@@ -88,20 +88,20 @@ export function createAAtUIPlugin(options: AAtUIVuePluginOptions)
         },
       };
 
-      app.provide(AAtUIAdapterKey, adapterFactory);
+      app.provide(BraidAdapterKey, adapterFactory);
     },
   };
 }
 
 /**
  * 在 Vue setup 中获取 `createAdapter` 工厂。
- * 必须先通过 `app.use(createAAtUIPlugin(...))` 安装插件。
+ * 必须先通过 `app.use(createBraidPlugin(...))` 安装插件。
  */
-export function useAAtUIAdapter(): { createAdapter: (options: AAtUIAdapterRuntimeOptions) => AAtUIAdapter } {
-  const factory = inject<{ createAdapter: (options: AAtUIAdapterRuntimeOptions) => AAtUIAdapter }>(AAtUIAdapterKey);
+export function useBraidAdapter(): { createAdapter: (options: BraidAdapterRuntimeOptions) => BraidAdapter } {
+  const factory = inject<{ createAdapter: (options: BraidAdapterRuntimeOptions) => BraidAdapter }>(BraidAdapterKey);
   if (!factory) {
     throw new Error(
-      '[A@UI] useAAtUIAdapter() must be called after installing the A@UI plugin via app.use(createAAtUIPlugin(...)).'
+      '[Braid] useBraidAdapter() must be called after installing the Braid plugin via app.use(createBraidPlugin(...)).'
     );
   }
   return factory;
@@ -114,14 +114,14 @@ function normalizeError(error: unknown): Error {
     return error;
   }
 
-  return new Error(typeof error === 'string' ? error : 'Unknown A@UI runtime error');
+  return new Error(typeof error === 'string' ? error : 'Unknown Braid runtime error');
 }
 
-export class AAtUIAdapter {
+export class BraidAdapter {
   private manager: WidgetManager;
-  private onError?: AAtUIAdapterOptions['onError'];
+  private onError?: BraidAdapterOptions['onError'];
 
-  constructor(options: AAtUIAdapterOptions) {
+  constructor(options: BraidAdapterOptions) {
     this.onError = options.onError;
 
     try {
@@ -133,7 +133,7 @@ export class AAtUIAdapter {
     }
   }
 
-  dispatch(command: AAtUICommand): void {
+  dispatch(command: BraidCommand): void {
     try {
       this.manager.dispatch(command);
     } catch (error) {
@@ -146,7 +146,7 @@ export class AAtUIAdapter {
     }
   }
 
-  handleError(error: unknown, context: AAtUIAdapterErrorContext): void {
+  handleError(error: unknown, context: BraidAdapterErrorContext): void {
     const normalizedError = normalizeError(error);
     if (this.onError) {
       this.onError(normalizedError, context);
@@ -156,6 +156,6 @@ export class AAtUIAdapter {
   }
 }
 
-export function createAAtUIAdapter(options: AAtUIAdapterOptions): AAtUIAdapter {
-  return new AAtUIAdapter(options);
+export function createBraidAdapter(options: BraidAdapterOptions): BraidAdapter {
+  return new BraidAdapter(options);
 }

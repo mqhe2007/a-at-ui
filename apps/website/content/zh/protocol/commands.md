@@ -4,7 +4,7 @@ title: 命令协议
 
 # 命令协议
 
-A@UI 当前定义三种命令：`render`、`update`、`destroy`。
+Braid 当前定义三种命令：`render`、`update`、`destroy`。
 
 ## render
 

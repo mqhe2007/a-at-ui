@@ -4,11 +4,11 @@ title: Security Model
 
 # Security Model
 
-A@UI's security design is based on **declarative component constraints** — an Agent can only use pre-registered components and cannot inject arbitrary code or manipulate unauthorized DOM.
+Braid's security design is based on **declarative component constraints** — an Agent can only use pre-registered components and cannot inject arbitrary code or manipulate unauthorized DOM.
 
 ## Component Whitelist
 
-Every UI component that an Agent can drive must be declared in `a-at-ui.manifest.json`. The Runtime builds a component map at initialization:
+Every UI component that an Agent can drive must be declared in `braid.manifest.json`. The Runtime builds a component map at initialization:
 
 - Plugin install phase: iterates over every component name in the manifest, resolving each from the explicit component map or Vue global registry
 - Component not found → initialization error, refuses to start
@@ -58,6 +58,6 @@ All invalid commands, parse failures, and dispatch errors are uniformly exposed 
 
 ## References
 
-- `packages/a-at-ui/src/utils.ts` — `validateAAtUICommand()` validation
-- `packages/a-at-ui/src/runtime/vue/widget-manager.ts` — `buildComponentMap()`, `isSerializableValue()`, lifecycle checks
-- `packages/a-at-ui/src/runtime/vue/stream.ts` — command validation during stream parsing
+- `packages/braid/src/utils.ts` — `validateBraidCommand()` validation
+- `packages/braid/src/runtime/vue/widget-manager.ts` — `buildComponentMap()`, `isSerializableValue()`, lifecycle checks
+- `packages/braid/src/runtime/vue/stream.ts` — command validation during stream parsing

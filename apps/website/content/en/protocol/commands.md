@@ -4,7 +4,7 @@ title: Command Protocol
 
 # Command Protocol
 
-A@UI currently defines three commands: `render`, `update`, and `destroy`.
+Braid currently defines three commands: `render`, `update`, and `destroy`.
 
 ## render
 

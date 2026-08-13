@@ -4,7 +4,7 @@ title: 组件库指南
 
 # 组件库 Manifest
 
-第三方组件库通过提供可导入的 `a-at-ui.manifest.json` 向 A@UI 运行时声明能力。
+第三方组件库通过提供可导入的 `braid.manifest.json` 向 Braid 运行时声明能力。
 
 ## manifest 最小结构
 
@@ -45,4 +45,4 @@ title: 组件库指南
 
 ## 官方 schema
 
-`assets/a-at-ui.manifest.schema.json`
+`assets/braid.manifest.schema.json`

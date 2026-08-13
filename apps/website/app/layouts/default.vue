@@ -14,7 +14,7 @@ const { t } = useI18n()
         </div>
         <div class="footer-right">
           <div class="footer-social">
-            <a href="https://github.com/mqhe2007/a-at-ui" target="_blank" rel="noopener noreferrer"
+            <a href="https://github.com/mqhe2007/braid" target="_blank" rel="noopener noreferrer"
               class="footer-social-link" title="GitHub">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <path

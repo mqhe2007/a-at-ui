@@ -4,7 +4,7 @@ title: 错误参考
 
 # 错误参考
 
-A@UI Runtime 在以下场景中产生错误。所有错误通过 `onError` 回调暴露，回调中附带 `source` 和上下文信息。
+Braid Runtime 在以下场景中产生错误。所有错误通过 `onError` 回调暴露，回调中附带 `source` 和上下文信息。
 
 ## 错误类型
 
@@ -12,7 +12,7 @@ A@UI Runtime 在以下场景中产生错误。所有错误通过 `onError` 回�
 
 | 场景 | 错误消息 | 触发时机 |
 |------|---------|---------|
-| 插件未安装 | `useAAtUIAdapter() must be called after installing the A@UI plugin` | 在未安装插件时调用 `useAAtUIAdapter()` |
+| 插件未安装 | `useBraidAdapter() must be called after installing the Braid plugin` | 在未安装插件时调用 `useBraidAdapter()` |
 | 全局注册缺失 | `Component "X" not found. Register it globally...` | 插件安装时组件名不在全局注册表且无显式映射 |
 | manifest 组件缺失 | `Manifest component "X" has no matching Vue component` | `WidgetManager` 初始化时 manifest 声明的组件无对应 Vue 实现 |
 | mount target 找不到 | `Mount target not found: "selector"` | 传入的 CSS 选择器在 DOM 中无法匹配到元素 |
@@ -53,7 +53,7 @@ A@UI Runtime 在以下场景中产生错误。所有错误通过 `onError` 回�
 通过 `onError(error, context)` 回调暴露的上下文对象：
 
 ```ts
-interface AAtUIAdapterErrorContext {
+interface BraidAdapterErrorContext {
   source: 'stream' | 'dispatch' | 'config';
   raw?: string;       // SSE 原始 payload（来源为 stream 时）
   command?: unknown;   // 已解析的命令对象（来源为 dispatch 时）
@@ -62,6 +62,6 @@ interface AAtUIAdapterErrorContext {
 
 ## 参考
 
-- `packages/a-at-ui/src/runtime/vue/adapter.ts` — `AAtUIAdapterErrorContext` 类型定义
-- `packages/a-at-ui/src/runtime/vue/widget-manager.ts` — 调度错误实现
-- `packages/a-at-ui/src/runtime/vue/stream.ts` — 流错误实现
+- `packages/braid/src/runtime/vue/adapter.ts` — `BraidAdapterErrorContext` 类型定义
+- `packages/braid/src/runtime/vue/widget-manager.ts` — 调度错误实现
+- `packages/braid/src/runtime/vue/stream.ts` — 流错误实现

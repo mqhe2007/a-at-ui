@@ -25,7 +25,7 @@ watch(locale, refresh)
 
 useHead({
   title: computed(() =>
-    page.value?.title ? `${page.value.title} — A@UI` : 'Docs — A@UI',
+    page.value?.title ? `${page.value.title} — Braid` : 'Docs — Braid',
   ),
 })
 </script>

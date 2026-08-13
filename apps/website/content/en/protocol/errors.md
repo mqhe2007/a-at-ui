@@ -4,7 +4,7 @@ title: Error Reference
 
 # Error Reference
 
-The A@UI Runtime produces errors in the following scenarios. All errors are exposed through the `onError` callback with a `source` label and context information.
+The Braid Runtime produces errors in the following scenarios. All errors are exposed through the `onError` callback with a `source` label and context information.
 
 ## Error Types
 
@@ -12,7 +12,7 @@ The A@UI Runtime produces errors in the following scenarios. All errors are expo
 
 | Scenario | Error Message | Trigger |
 |----------|--------------|---------|
-| Plugin not installed | `useAAtUIAdapter() must be called after installing the A@UI plugin` | Calling `useAAtUIAdapter()` without installing the plugin |
+| Plugin not installed | `useBraidAdapter() must be called after installing the Braid plugin` | Calling `useBraidAdapter()` without installing the plugin |
 | Missing global registration | `Component "X" not found. Register it globally...` | Plugin install with component name not in global registry and no explicit map |
 | Missing manifest component | `Manifest component "X" has no matching Vue component` | `WidgetManager` init with a manifest-declared component having no Vue implementation |
 | Mount target not found | `Mount target not found: "selector"` | Passed CSS selector does not match any element in the DOM |
@@ -53,7 +53,7 @@ The A@UI Runtime produces errors in the following scenarios. All errors are expo
 Context object exposed via the `onError(error, context)` callback:
 
 ```ts
-interface AAtUIAdapterErrorContext {
+interface BraidAdapterErrorContext {
   source: 'stream' | 'dispatch' | 'config';
   raw?: string;       // Raw SSE payload (when source is "stream")
   command?: unknown;   // Parsed command object (when source is "dispatch")
@@ -62,6 +62,6 @@ interface AAtUIAdapterErrorContext {
 
 ## References
 
-- `packages/a-at-ui/src/runtime/vue/adapter.ts` — `AAtUIAdapterErrorContext` type definition
-- `packages/a-at-ui/src/runtime/vue/widget-manager.ts` — dispatch error implementation
-- `packages/a-at-ui/src/runtime/vue/stream.ts` — stream error implementation
+- `packages/braid/src/runtime/vue/adapter.ts` — `BraidAdapterErrorContext` type definition
+- `packages/braid/src/runtime/vue/widget-manager.ts` — dispatch error implementation
+- `packages/braid/src/runtime/vue/stream.ts` — stream error implementation

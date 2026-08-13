@@ -4,11 +4,11 @@ title: Backend Integration
 
 # Backend Integration
 
-The A@UI backend principle is one sentence: consume the protocol, not an SDK.
+The Braid backend principle is one sentence: consume the protocol, not an SDK.
 
 ## Mandatory Constraints
 
-- Do not install any A@UI backend SDK
+- Do not install any Braid backend SDK
 - Only output JSON commands that conform to `assets/commands.schema.json`
 - When using SSE, write one `data: <json>` line per command, ending with `data: [DONE]`
 

@@ -19,14 +19,14 @@ if (!version) {
 console.log(`📌 真理版本: ${version}`);
 
 // 2. 同步主包 package.json
-const mainPkgPath = path.join(repoRoot, 'packages', 'a-at-ui', 'package.json');
+const mainPkgPath = path.join(repoRoot, 'packages', 'braid', 'package.json');
 const mainPkg = JSON.parse(readFileSync(mainPkgPath, 'utf-8'));
 if (mainPkg.version !== version) {
   mainPkg.version = version;
   writeFileSync(mainPkgPath, JSON.stringify(mainPkg, null, 2) + '\n');
-  console.log(`  ✓ packages/a-at-ui/package.json → ${version}`);
+  console.log(`  ✓ packages/braid/package.json → ${version}`);
 } else {
-  console.log(`  - packages/a-at-ui/package.json 已是最新`);
+  console.log(`  - packages/braid/package.json 已是最新`);
 }
 
 // 3. 同步网站 package.json

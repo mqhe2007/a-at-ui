@@ -1,16 +1,16 @@
 ---
-name: a-at-ui-protocol
-description: "Use when an AI agent/SDK needs to emit A@UI render/update/destroy commands to drive frontend widgets. Covers command shapes, structured JSON output, optional SSE transport, and validation constraints. Backend-only: no frontend runtime setup."
+name: braid-protocol
+description: "Use when an AI agent/SDK needs to emit Braid render/update/destroy commands to drive frontend widgets. Covers command shapes, structured JSON output, optional SSE transport, and validation constraints. Backend-only: no frontend runtime setup."
 metadata:
-  author: a-at-ui
+  author: braid
   version: "0.3.0"
 ---
 
-# A@UI Protocol Skill
+# Braid Protocol Skill
 
 ## What This Skill Does
 
-This skill injects the A@UI command protocol into a backend AI agent's system prompt. It teaches the agent how to emit valid `render`, `update`, and `destroy` commands so a frontend runtime can consume them and render widgets.
+This skill injects the Braid command protocol into a backend AI agent's system prompt. It teaches the agent how to emit valid `render`, `update`, and `destroy` commands so a frontend runtime can consume them and render widgets.
 
 It is designed to work with both:
 
@@ -21,18 +21,18 @@ Use this skill when:
 
 - the agent is supposed to drive a UI through structured commands
 - the backend uses an AI SDK that supports skill-based prompt injection
-- you need the agent to stay within the A@UI command contract
+- you need the agent to stay within the Braid command contract
 - you are replacing ad-hoc UI payloads with a standardized protocol
 
 Do not use this skill for:
 
-- frontend runtime setup or npm package installation (use `a-at-ui-setup`)
+- frontend runtime setup or npm package installation (use `braid-setup`)
 - plain text answers with no UI intent
 - component business logic
 
 ## Core Principle
 
-Backends do **not** need an A@UI SDK. They only emit JSON command objects. The frontend runtime handles widget lifecycles, mounting, and event forwarding.
+Backends do **not** need an Braid SDK. They only emit JSON command objects. The frontend runtime handles widget lifecycles, mounting, and event forwarding.
 
 ## Output Modes
 
@@ -55,7 +55,7 @@ Many integrations use a top-level wrapper like:
 Rules:
 
 - the top-level object must contain only the fields required by the surrounding schema
-- every item inside `commands` must be a valid A@UI command object
+- every item inside `commands` must be a valid Braid command object
 - do not wrap the JSON in Markdown code fences
 - do not add explanatory prose before or after the JSON
 
@@ -104,7 +104,7 @@ Shallow-merge new params into an existing widget instance.
   "widgetId": "widget_42",
   "params": {
     "loading": false,
-    "results": [{"id": 1, "name": "A@UI"}]
+    "results": [{"id": 1, "name": "Braid"}]
   }
 }
 ```
@@ -141,7 +141,7 @@ These rules are non-negotiable. Violating any of them produces invalid output.
 5. **Component names must exist in the project's manifest.** Unknown components cause runtime errors.
 6. **Do not assume widget IDs** ahead of the initial render unless the surrounding system explicitly returns them.
 7. **Keep params focused on UI state**, not transport metadata or backend internals.
-8. **When the surrounding system expects a top-level JSON object,** place only valid A@UI commands inside the required wrapper such as `{"commands":[...]}`.
+8. **When the surrounding system expects a top-level JSON object,** place only valid Braid commands inside the required wrapper such as `{"commands":[...]}`.
 9. **Do not wrap JSON in Markdown code fences or prose** unless the surrounding system explicitly asks for that format.
 10. **Use SSE `data:` lines only when the transport explicitly requires SSE.**
 
@@ -169,7 +169,7 @@ Why wrong: `update` requires `params`.
 {"type": "replace", "component": "SearchBox"}
 ```
 
-Why wrong: `replace` is not an A@UI command.
+Why wrong: `replace` is not an Braid command.
 
 ### ❌ Non-serializable values
 
@@ -228,12 +228,12 @@ A complete agent system prompt should be layered as:
 ```
 [Project business prompt + tool descriptions]
      +
-[A@UI protocol rules (this skill)]
+[Braid protocol rules (this skill)]
      +
 [Project manifest + component selection rules (project-specific)]
 ```
 
 ## References
 
-- [A@UI Protocol Documentation](https://a-at-ui.mengqinghe.com/zh/protocol/commands)
-- [A@UI Frontend Vue Guide](https://a-at-ui.mengqinghe.com/zh/guides/frontend-vue)
+- [Braid Protocol Documentation](https://braid.mengqinghe.com/zh/protocol/commands)
+- [Braid Frontend Vue Guide](https://braid.mengqinghe.com/zh/guides/frontend-vue)

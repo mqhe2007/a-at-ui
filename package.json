@@ -1,5 +1,5 @@
 {
-  "name": "a-at-ui-monorepo",
+  "name": "braid-monorepo",
   "version": "0.2.0",
   "specVersion": "0.1.0",
   "private": true,
@@ -13,8 +13,8 @@
     "test": "bun run --filter './packages/*' test",
     "clean": "bun run --filter './packages/*' clean",
     "sync-version": "node scripts/sync-version.js",
-    "website:dev": "bun run --filter 'a-at-ui-website' dev",
-    "website:build": "bun run --filter 'a-at-ui-website' build"
+    "website:dev": "bun run --filter 'braid-website' dev",
+    "website:build": "bun run --filter 'braid-website' build"
   },
   "devDependencies": {
     "ajv": "^8.17.1",

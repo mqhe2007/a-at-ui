@@ -4,42 +4,42 @@ title: Agent Skill 指南
 
 # Agent Skill 指南
 
-A@UI 提供三个可安装的 Agent Skill，分别面向不同使用场景。它们把协议规则、接入步骤、常见错误约束放进 AI 可读取的上下文里，减少临时提示词遗漏和错误实现。
+Braid 提供三个可安装的 Agent Skill，分别面向不同使用场景。它们把协议规则、接入步骤、常见错误约束放进 AI 可读取的上下文里，减少临时提示词遗漏和错误实现。
 
 ## 三个 Skill
 
 | Skill              | 安装目标                                         | 用途                                                   |
 | ------------------ | ------------------------------------------------ | ------------------------------------------------------ |
-| `a-at-ui-manifest` | 组件库作者                                       | 指导创建和维护 `a-at-ui.manifest.json`                 |
-| `a-at-ui-setup`    | AI Coding 工具（Claude Code、Codex、VS Code 等） | 指导在项目中安装 npm 包、接入前端运行时、配置 manifest |
-| `a-at-ui-protocol` | 后端 AI SDK（支持 Skill 机制）                   | 注入 A@UI 协议规则，约束后端 Agent 按规范输出命令流    |
+| `braid-manifest` | 组件库作者                                       | 指导创建和维护 `braid.manifest.json`                 |
+| `braid-setup`    | AI Coding 工具（Claude Code、Codex、VS Code 等） | 指导在项目中安装 npm 包、接入前端运行时、配置 manifest |
+| `braid-protocol` | 后端 AI SDK（支持 Skill 机制）                   | 注入 Braid 协议规则，约束后端 Agent 按规范输出命令流    |
 
 三者的关系：
 
 ```
 ┌──────────────────────────────────────┐
-│  a-at-ui-manifest（组件库作者）       │
+│  braid-manifest（组件库作者）       │
 │  创建和发布 manifest.json             │
 └──────────────┬───────────────────────┘
                │ manifest 被导入
                ▼
 ┌──────────────────────────────────────┐
-│  a-at-ui-setup（开发时）              │
+│  braid-setup（开发时）              │
 │  安装 / 接入 / 配置                   │
 └──────────────┬───────────────────────┘
                │ 接入完成后
                ▼
 ┌──────────────────────────────────────┐
-│  a-at-ui-protocol（运行时）           │
+│  braid-protocol（运行时）           │
 │  驱动后端 Agent 输出正确命令           │
 └──────────────────────────────────────┘
 ```
 
-## a-at-ui-manifest（组件库作者技能）
+## braid-manifest（组件库作者技能）
 
 ### 适用场景
 
-- 组件库首次接入 A@UI，需要创建 `a-at-ui.manifest.json`
+- 组件库首次接入 Braid，需要创建 `braid.manifest.json`
 - 向已有库新增组件，需要更新 manifest
 - 设计组件的 params、events、lifecycle 声明
 - 校验已有 manifest 是否符合规范
@@ -47,37 +47,37 @@ A@UI 提供三个可安装的 Agent Skill，分别面向不同使用场景。它
 ### 安装
 
 ```bash
-npx skills add mqhe2007/a-at-ui --skill a-at-ui-manifest
+npx skills add mqhe2007/braid --skill braid-manifest
 ```
 
 ### 推荐使用方式
 
 ```text
-使用 a-at-ui-manifest 技能帮我的组件库创建 a-at-ui.manifest.json。我的组件包括 PersonalProfileCard 和 ArticleList。
+使用 braid-manifest 技能帮我的组件库创建 braid.manifest.json。我的组件包括 PersonalProfileCard 和 ArticleList。
 ```
 
-## a-at-ui-setup（IDE 集成技能）
+## braid-setup（IDE 集成技能）
 
 ### 适用场景
 
-- 在已有前端应用中接入 A@UI 前端运行时
-- 安装 `a-at-ui` npm 包并选择框架适配器
-- 配置 `a-at-ui.manifest.json` 并注册前端组件
+- 在已有前端应用中接入 Braid 前端运行时
+- 安装 `braid` npm 包并选择框架适配器
+- 配置 `braid.manifest.json` 并注册前端组件
 - 排查组件名、manifest 和 registry 不一致的问题
 
 ### 安装
 
 ```bash
-npx skills add mqhe2007/a-at-ui --skill a-at-ui-setup
+npx skills add mqhe2007/braid --skill braid-setup
 ```
 
 ### 推荐使用方式
 
 ```text
-使用 a-at-ui-setup 技能帮我在 Vue 项目中接入 A@UI。安装官方 npm 包，读取组件 manifest，接入前端运行时。
+使用 braid-setup 技能帮我在 Vue 项目中接入 Braid。安装官方 npm 包，读取组件 manifest，接入前端运行时。
 ```
 
-## a-at-ui-protocol（协议注入技能）
+## braid-protocol（协议注入技能）
 
 ### 适用场景
 
@@ -89,7 +89,7 @@ npx skills add mqhe2007/a-at-ui --skill a-at-ui-setup
 ### 安装
 
 ```bash
-npx skills add mqhe2007/a-at-ui --skill a-at-ui-protocol
+npx skills add mqhe2007/braid --skill braid-protocol
 ```
 
 ### 推荐使用方式
@@ -99,7 +99,7 @@ npx skills add mqhe2007/a-at-ui --skill a-at-ui-protocol
 ```
 [项目业务提示词 + 工具描述]
      +
-[a-at-ui-protocol 提供并按需加载的协议规则]
+[braid-protocol 提供并按需加载的协议规则]
      +
 [项目 manifest + 组件选择规则（项目自行维护）]
 ```

@@ -1,32 +1,32 @@
-# A@UI
+# Braid
 
 [English](./README.md)
 
-[![npm version](https://img.shields.io/npm/v/a-at-ui)](https://www.npmjs.com/package/a-at-ui)
-[![release](https://img.shields.io/github/v/tag/mqhe2007/a-at-ui?sort=semver&label=release)](https://github.com/mqhe2007/a-at-ui/releases)
-[![license](https://img.shields.io/github/license/mqhe2007/a-at-ui)](https://github.com/mqhe2007/a-at-ui/blob/main/LICENSE)
-[![CI](https://github.com/mqhe2007/a-at-ui/actions/workflows/test.yml/badge.svg)](https://github.com/mqhe2007/a-at-ui/actions/workflows/test.yml)
-[![skills.sh](https://skills.sh/b/mqhe2007/a-at-ui)](https://skills.sh/mqhe2007/a-at-ui)
-[![docs](https://img.shields.io/badge/docs-online-0A7C66)](https://a-at-ui.mengqinghe.com)
+[![npm version](https://img.shields.io/npm/v/braid)](https://www.npmjs.com/package/braid)
+[![release](https://img.shields.io/github/v/tag/mqhe2007/braid?sort=semver&label=release)](https://github.com/mqhe2007/braid/releases)
+[![license](https://img.shields.io/github/license/mqhe2007/braid)](https://github.com/mqhe2007/braid/blob/main/LICENSE)
+[![CI](https://github.com/mqhe2007/braid/actions/workflows/test.yml/badge.svg)](https://github.com/mqhe2007/braid/actions/workflows/test.yml)
+[![skills.sh](https://skills.sh/b/mqhe2007/braid)](https://skills.sh/mqhe2007/braid)
+[![docs](https://img.shields.io/badge/docs-online-0A7C66)](https://braid.mengqinghe.com)
 
 **一套面向 AI Agent 的协议规范与轻量前端运行时。**
 
 任意后端只需按协议输出 JSON 命令流；前端负责注册 manifest 和组件，并消费命令流渲染真实界面。无需后端 SDK，无需紧耦合，无需执行任意代码。
 
 > [!WARNING]
-> A@UI 目前处于快速迭代阶段，稳定版发布前应视为不稳定方案。协议细节、运行时 API、manifest 结构及命令语义均可能变更。
+> Braid 目前处于快速迭代阶段，稳定版发布前应视为不稳定方案。协议细节、运行时 API、manifest 结构及命令语义均可能变更。
 >
 > 若在生产环境使用：锁定精确版本号、以仓库中 Schema 资源为准校验 manifest 与命令、升级前阅读 release notes、为未知命令或渲染行为保留兜底策略。
 
 ---
 
 <p align="center">
-  <img width="1138" height="574" alt="A@UI Demo" src="https://github.com/user-attachments/assets/8076afec-584a-4bd5-8704-7b8cccffddd7" />
+  <img width="1138" height="574" alt="Braid Demo" src="https://github.com/user-attachments/assets/8076afec-584a-4bd5-8704-7b8cccffddd7" />
 </p>
 
 ---
 
-## 为什么需要 A@UI
+## 为什么需要 Braid
 
 当今构建 AI 驱动的界面，通常只有以下选择：
 
@@ -34,7 +34,7 @@
 - **采用文档生成方式** — 输出富文本，而非真正的交互组件。
 - **接入重型协议** — 多组件目录、传输协商、两端都需 Schema 注册。
 
-A@UI 选择了另一条路：**三条指令、一个 JSON 流、零后端依赖。**
+Braid 选择了另一条路：**三条指令、一个 JSON 流、零后端依赖。**
 
 ```text
 render   → 创建组件实例，传入初始数据
@@ -48,7 +48,7 @@ destroy  → 干净地销毁组件
 
 ```
 ┌─────────────┐     render/update/destroy      ┌───────────────┐
-│  AI Agent   │ ────────── JSON ──────────▶    │  A@UI Runtime │
+│  AI Agent   │ ────────── JSON ──────────▶    │  Braid Runtime │
 │  (任意语言)  │                                 │  （前端运行时） │
 └─────────────┘                                 └───────┬───────┘
                                                          │
@@ -69,22 +69,22 @@ destroy  → 干净地销毁组件
 ### 1. 安装
 
 ```bash
-npm install a-at-ui
+npm install braid
 ```
 
 ### 2. 注册组件并安装插件
 
 ```ts
 import { createApp } from 'vue'
-import { createAAtUIPlugin } from 'a-at-ui/runtime/vue'
-import manifest from './a-at-ui.manifest.json'
+import { createBraidPlugin } from 'braid/runtime/vue'
+import manifest from './braid.manifest.json'
 import SearchBox from './SearchBox.vue'
 import ArticleList from './ArticleList.vue'
 
 const app = createApp(App)
 app.component('SearchBox', SearchBox)
 app.component('ArticleList', ArticleList)
-app.use(createAAtUIPlugin({ manifest }))
+app.use(createBraidPlugin({ manifest }))
 app.mount('#app')
 ```
 
@@ -118,34 +118,34 @@ http.createServer((req, res) => {
 
 ## 完整文档
 
-文档站：[a-at-ui.mengqinghe.com](https://a-at-ui.mengqinghe.com)
+文档站：[braid.mengqinghe.com](https://braid.mengqinghe.com)
 
-- [Vue 前端接入指南](https://a-at-ui.mengqinghe.com/zh/docs/guides/frontend-vue)
-- [Node.js 后端接入指南](https://a-at-ui.mengqinghe.com/zh/docs/guides/backend-nodejs)
-- [组件库 Manifest](https://a-at-ui.mengqinghe.com/zh/docs/guides/component-manifest)
-- [命令协议](https://a-at-ui.mengqinghe.com/zh/docs/protocol/commands)
-- [事件协议](https://a-at-ui.mengqinghe.com/zh/docs/protocol/events)
-- [生命周期与错误策略](https://a-at-ui.mengqinghe.com/zh/docs/protocol/lifecycle)
+- [Vue 前端接入指南](https://braid.mengqinghe.com/zh/docs/guides/frontend-vue)
+- [Node.js 后端接入指南](https://braid.mengqinghe.com/zh/docs/guides/backend-nodejs)
+- [组件库 Manifest](https://braid.mengqinghe.com/zh/docs/guides/component-manifest)
+- [命令协议](https://braid.mengqinghe.com/zh/docs/protocol/commands)
+- [事件协议](https://braid.mengqinghe.com/zh/docs/protocol/events)
+- [生命周期与错误策略](https://braid.mengqinghe.com/zh/docs/protocol/lifecycle)
 
 ## Agent Skill
 
-A@UI 提供三个可安装的 Skill，分别面向不同使用场景：
+Braid 提供三个可安装的 Skill，分别面向不同使用场景：
 
 ```bash
-npx skills add mqhe2007/a-at-ui --skill a-at-ui-manifest
-npx skills add mqhe2007/a-at-ui --skill a-at-ui-setup
-npx skills add mqhe2007/a-at-ui --skill a-at-ui-protocol
+npx skills add mqhe2007/braid --skill braid-manifest
+npx skills add mqhe2007/braid --skill braid-setup
+npx skills add mqhe2007/braid --skill braid-protocol
 ```
 
-- `a-at-ui-manifest` — 组件库作者创建 manifest
-- `a-at-ui-setup` — 开发者接入前端运行时
-- `a-at-ui-protocol` — 后端 Agent 输出合规命令流
+- `braid-manifest` — 组件库作者创建 manifest
+- `braid-setup` — 开发者接入前端运行时
+- `braid-protocol` — 后端 Agent 输出合规命令流
 
 ## 与 A2UI 的对比
 
 [A2UI](https://a2ui.org/) 是 Google 主导的 Agent驱动界面协议。两者目标相似但设计取舍不同：
 
-| 维度         | A@UI                                   | A2UI                                                        |
+| 维度         | Braid                                   | A2UI                                                        |
 | ------------ | -------------------------------------- | ----------------------------------------------------------- |
 | **后端接入** | 零依赖，任意语言输出纯 JSON            | 需配置目录(catalog)、传输协商、消息路由                     |
 | **指令集**   | 3 条指令：render、update、destroy      | 多种消息类型：surface、component、catalog、action、数据绑定 |
@@ -155,19 +155,19 @@ npx skills add mqhe2007/a-at-ui --skill a-at-ui-protocol
 | **协议**     | MIT                                    | Apache 2.0                                                  |
 | **稳定度**   | Pre-stable (0.x)                       | v0.8 stable、v0.9 draft                                     |
 
-A@UI 的核心取舍是 **后端接入的极致简洁**——任何能输出 JSON 的服务都能驱动 UI。如果你需要更丰富的协议（正式传输协商、多端渲染器开箱即用），A2UI 可能更合适。
+Braid 的核心取舍是 **后端接入的极致简洁**——任何能输出 JSON 的服务都能驱动 UI。如果你需要更丰富的协议（正式传输协商、多端渲染器开箱即用），A2UI 可能更合适。
 
 ## 仓库内容
 
 | 目录                | 说明                                |
 | ------------------- | ----------------------------------- |
-| `packages/a-at-ui/` | 前端运行时核心包（npm）             |
+| `packages/braid/` | 前端运行时核心包（npm）             |
 | `apps/website/`     | 文档站（Nuxt）                      |
-| `skills/a-at-ui/`   | Agent Skill 定义与 JSON Schema 资产 |
+| `skills/braid/`   | Agent Skill 定义与 JSON Schema 资产 |
 
 ## 线上示例
 
-使用 A@UI 架构搭建的线上站点：[mengqinghe.com](https://mengqinghe.com)
+使用 Braid 架构搭建的线上站点：[mengqinghe.com](https://mengqinghe.com)
 
 ## 贡献指南
 

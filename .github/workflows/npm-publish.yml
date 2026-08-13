@@ -39,11 +39,11 @@ jobs:
         run: bun install --frozen-lockfile
 
       - name: Run package tests
-        run: bun run --filter a-at-ui test
+        run: bun run --filter braid test
 
       - name: Build package
-        run: bun run --filter a-at-ui build
+        run: bun run --filter braid build
 
       - name: Publish package
-        working-directory: packages/a-at-ui
+        working-directory: packages/braid
         run: npm publish --provenance --access public

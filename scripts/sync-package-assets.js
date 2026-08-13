@@ -6,7 +6,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const repoRoot = path.resolve(__dirname, '..');
-const packageRoot = path.join(repoRoot, 'packages', 'a-at-ui');
+const packageRoot = path.join(repoRoot, 'packages', 'braid');
 const distRoot = path.join(packageRoot, 'dist');
 
 // Ensure dist exists
@@ -18,7 +18,7 @@ if (!existsSync(distRoot)) {
 const skillsSrc = path.join(repoRoot, 'skills');
 const skillsTarget = path.join(distRoot, 'skills');
 
-for (const skillName of ['a-at-ui-manifest', 'a-at-ui-setup', 'a-at-ui-protocol']) {
+for (const skillName of ['braid-manifest', 'braid-setup', 'braid-protocol']) {
   const srcDir = path.join(skillsSrc, skillName);
   const tgtDir = path.join(skillsTarget, skillName);
   if (existsSync(srcDir)) {

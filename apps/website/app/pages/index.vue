@@ -3,30 +3,30 @@ const { t, locale } = useI18n()
 const route = useRoute()
 
 /* ── SEO meta using useSeoMeta for locale-aware OG tags ────── */
-const siteUrl = 'https://a-at-ui.mengqinghe.com'
+const siteUrl = 'https://braid.mengqinghe.com'
 const pageUrl = computed(() => `${siteUrl}${route.path}`)
 
 useSeoMeta({
   title: () => locale.value === 'en'
-    ? 'A@UI — Protocol for AI Agent-driven Interfaces'
-    : 'A@UI — 让 AI Agent 驱动真实界面',
+    ? 'Braid — Protocol for AI Agent-driven Interfaces'
+    : 'Braid — 让 AI Agent 驱动真实界面',
   description: () => locale.value === 'en'
     ? 'A protocol specification and lightweight frontend runtime for AI Agent-driven interfaces. Any backend emits JSON commands; the frontend renders real components.'
-    : 'A@UI：让每个 AI Agent 都能操控真实界面。无需 SDK 绑定，后端发 JSON，前端响应，支持任意语言，5 分钟接入。',
+    : 'Braid：让每个 AI Agent 都能操控真实界面。无需 SDK 绑定，后端发 JSON，前端响应，支持任意语言，5 分钟接入。',
   ogTitle: () => locale.value === 'en'
-    ? 'A@UI — Protocol for AI Agent-driven Interfaces'
-    : 'A@UI — 让 AI Agent 驱动真实界面',
+    ? 'Braid — Protocol for AI Agent-driven Interfaces'
+    : 'Braid — 让 AI Agent 驱动真实界面',
   ogDescription: () => locale.value === 'en'
     ? 'A protocol specification and lightweight frontend runtime for AI Agent-driven interfaces. Three commands, one JSON stream, any language.'
-    : '三条指令、一个 JSON 流、任意后端语言。A@UI 让 AI Agent 直接驱动真实前端组件。',
+    : '三条指令、一个 JSON 流、任意后端语言。Braid 让 AI Agent 直接驱动真实前端组件。',
   ogUrl: pageUrl,
   ogType: 'website',
   ogImage: `${siteUrl}/og-image.svg`,
-  ogSiteName: 'A@UI',
+  ogSiteName: 'Braid',
   twitterCard: 'summary_large_image',
   twitterTitle: () => locale.value === 'en'
-    ? 'A@UI — Protocol for AI Agent-driven Interfaces'
-    : 'A@UI — 让 AI Agent 驱动真实界面',
+    ? 'Braid — Protocol for AI Agent-driven Interfaces'
+    : 'Braid — 让 AI Agent 驱动真实界面',
   twitterDescription: () => locale.value === 'en'
     ? 'Three commands, one JSON stream. Any backend drives real UI from an AI Agent.'
     : '三条指令、一个 JSON 流。任意后端，AI Agent 驱动真实界面。',
@@ -72,9 +72,9 @@ const destroyCode = `{
   "type": "destroy",
   "widgetId": "widget-1"
 }`
-const skillInstallCode = `npx skills add mqhe2007/a-at-ui --skill a-at-ui-manifest
-npx skills add mqhe2007/a-at-ui --skill a-at-ui-setup
-npx skills add mqhe2007/a-at-ui --skill a-at-ui-protocol`
+const skillInstallCode = `npx skills add mqhe2007/braid --skill braid-manifest
+npx skills add mqhe2007/braid --skill braid-setup
+npx skills add mqhe2007/braid --skill braid-protocol`
 
 
 onMounted(() => {
@@ -383,7 +383,7 @@ onUnmounted(() => { })
           </a>
 
           <!-- Card 2: Community submission (placeholder) -->
-          <a class="showcase-card showcase-card-placeholder reveal-item" href="https://github.com/mqhe2007/a-at-ui/issues" target="_blank" rel="noopener noreferrer">
+          <a class="showcase-card showcase-card-placeholder reveal-item" href="https://github.com/mqhe2007/braid/issues" target="_blank" rel="noopener noreferrer">
             <div class="showcase-icon">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
@@ -419,7 +419,7 @@ onUnmounted(() => { })
         </div>
 
         <div class="contrib-grid">
-          <a class="contrib-card reveal-item" href="https://github.com/mqhe2007/a-at-ui/issues" target="_blank"
+          <a class="contrib-card reveal-item" href="https://github.com/mqhe2007/braid/issues" target="_blank"
             rel="noopener noreferrer">
             <div class="contrib-icon">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -431,7 +431,7 @@ onUnmounted(() => { })
             <span>{{ t('contribIssueDesc') }}</span>
           </a>
 
-          <a class="contrib-card reveal-item" href="https://github.com/mqhe2007/a-at-ui/pulls" target="_blank"
+          <a class="contrib-card reveal-item" href="https://github.com/mqhe2007/braid/pulls" target="_blank"
             rel="noopener noreferrer">
             <div class="contrib-icon">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -446,7 +446,7 @@ onUnmounted(() => { })
             <span>{{ t('contribPrDesc') }}</span>
           </a>
 
-          <a class="contrib-card reveal-item" href="https://github.com/mqhe2007/a-at-ui" target="_blank"
+          <a class="contrib-card reveal-item" href="https://github.com/mqhe2007/braid" target="_blank"
             rel="noopener noreferrer">
             <div class="contrib-icon">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -460,7 +460,7 @@ onUnmounted(() => { })
           </a>
         </div>
 
-        <a class="contrib-banner reveal-item" href="https://github.com/mqhe2007/a-at-ui/discussions" target="_blank"
+        <a class="contrib-banner reveal-item" href="https://github.com/mqhe2007/braid/discussions" target="_blank"
           rel="noopener noreferrer">
           <span class="contrib-banner-text">{{ t('contribBanner') }}</span>
           <span class="contrib-banner-arrow">→</span>

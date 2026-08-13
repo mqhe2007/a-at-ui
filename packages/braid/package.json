@@ -1,7 +1,7 @@
 {
-  "name": "a-at-ui",
+  "name": "braid",
   "version": "0.2.0",
-  "description": "A@UI is a protocol specification and frontend runtime for AI Agents. Any backend only needs to output a JSON command stream according to the protocol; the frontend is responsible for registering the manifest and components, and consuming the command stream to complete the rendering.",
+  "description": "Braid is a protocol specification and frontend runtime for AI Agents. Any backend only needs to output a JSON command stream according to the protocol; the frontend is responsible for registering the manifest and components, and consuming the command stream to complete the rendering.",
   "author": "Meng Qinghe",
   "license": "MIT",
   "keywords": [
@@ -17,11 +17,11 @@
   "types": "./dist/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mqhe2007/a-at-ui.git"
+    "url": "https://github.com/mqhe2007/braid.git"
   },
-  "homepage": "https://a-at-ui.mengqinghe.com",
+  "homepage": "https://braid.mengqinghe.com",
   "bugs": {
-    "url": "https://github.com/mqhe2007/a-at-ui/issues"
+    "url": "https://github.com/mqhe2007/braid/issues"
   },
   "exports": {
     ".": {
